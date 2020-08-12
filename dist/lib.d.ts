@@ -14,7 +14,8 @@ export default class Sphinx implements SphinxProvider {
     private active;
     private budget;
     private pubkey;
-    enable(): Promise<EnableRes | {
+    private logging;
+    enable(logging?: boolean): Promise<EnableRes | {
         budget: number;
         pubkey: string;
         application: string;

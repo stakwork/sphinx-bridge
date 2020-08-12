@@ -1,4 +1,5 @@
 import { SphinxProvider, EnableRes, KeysendRes, KeysendArgs } from './provider'
+import {postMessage, addEventer, removeEventer} from './postMessage'
 
 export enum MSG_TYPE {
   AUTHORIZE = 'AUTHORIZE',
@@ -18,8 +19,11 @@ export default class Sphinx implements SphinxProvider {
   private active: MSG_TYPE | null = null;
   private budget: number = 0;
   private pubkey: string = '';
+  private logging: boolean = false;
 
-  async enable() {
+  async enable(logging?:boolean) {
+    if(logging) this.logging=true
+    if(this.logging) console.log('=> ENABLE!')
     if (this.isEnabled) {
       return {
         budget:this.budget, 
@@ -35,11 +39,14 @@ export default class Sphinx implements SphinxProvider {
         this.pubkey = r.pubkey
         return r
       }
-    } catch(e) {}
+    } catch(e) {
+      if(this.logging) console.log(e)
+    }
     return null
   }
 
   async keysend(dest: string, amt: number) {
+    if(this.logging) console.log('=> KEYSEND')
     if (!this.isEnabled) return null
     if (!dest || !amt) return null
     if (dest.length!==66) return null
@@ -54,16 +61,19 @@ export default class Sphinx implements SphinxProvider {
       }
       return r
     } catch(e) {
+      if(this.logging) console.log(e)
       return null
     }
   }
 
   async updated() {
+    if(this.logging) console.log('=> UDPATED')
     if (!this.isEnabled) return null
     try {
       const r = await this.postMsg(MSG_TYPE.UPDATED)
       return r
     } catch(e) {
+      if(this.logging) console.log(e)
       return null
     }
   }
@@ -78,14 +88,12 @@ export default class Sphinx implements SphinxProvider {
       Promise.reject(new Error('User is busy'))
     }
     self.active = type
-
     return new Promise((resolve, reject) => {
-      window.parent.postMessage({
+      postMessage({
         application: APP_NAME,
         type,
         ...(args||{}),
-      }, '*')
-
+      })
       function handleWindowMessage(ev: MessageEvent) {
         if (!ev.data || ev.data.application !== APP_NAME) {
           return
@@ -97,10 +105,10 @@ export default class Sphinx implements SphinxProvider {
           self.active = null
           resolve(ev.data);
         }
-        window.removeEventListener('message', handleWindowMessage)
+        removeEventer(handleWindowMessage)
       }
 
-      window.addEventListener('message', handleWindowMessage)
+      addEventer(handleWindowMessage)
     })
   }
 

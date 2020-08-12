@@ -48,6 +48,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MSG_TYPE = void 0;
+var postMessage_1 = require("./postMessage");
 var MSG_TYPE;
 (function (MSG_TYPE) {
     MSG_TYPE["AUTHORIZE"] = "AUTHORIZE";
@@ -66,13 +67,18 @@ var Sphinx = /** @class */ (function () {
         this.active = null;
         this.budget = 0;
         this.pubkey = '';
+        this.logging = false;
     }
-    Sphinx.prototype.enable = function () {
+    Sphinx.prototype.enable = function (logging) {
         return __awaiter(this, void 0, void 0, function () {
             var r, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        if (logging)
+                            this.logging = true;
+                        if (this.logging)
+                            console.log('=> ENABLE!');
                         if (this.isEnabled) {
                             return [2 /*return*/, {
                                     budget: this.budget,
@@ -95,6 +101,8 @@ var Sphinx = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 3:
                         e_1 = _a.sent();
+                        if (this.logging)
+                            console.log(e_1);
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/, null];
                 }
@@ -107,6 +115,8 @@ var Sphinx = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        if (this.logging)
+                            console.log('=> KEYSEND');
                         if (!this.isEnabled)
                             return [2 /*return*/, null];
                         if (!dest || !amt)
@@ -131,6 +141,8 @@ var Sphinx = /** @class */ (function () {
                         return [2 /*return*/, r];
                     case 3:
                         e_2 = _a.sent();
+                        if (this.logging)
+                            console.log(e_2);
                         return [2 /*return*/, null];
                     case 4: return [2 /*return*/];
                 }
@@ -143,6 +155,8 @@ var Sphinx = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        if (this.logging)
+                            console.log('=> UDPATED');
                         if (!this.isEnabled)
                             return [2 /*return*/, null];
                         _a.label = 1;
@@ -154,6 +168,8 @@ var Sphinx = /** @class */ (function () {
                         return [2 /*return*/, r];
                     case 3:
                         e_3 = _a.sent();
+                        if (this.logging)
+                            console.log(e_3);
                         return [2 /*return*/, null];
                     case 4: return [2 /*return*/];
                 }
@@ -168,7 +184,7 @@ var Sphinx = /** @class */ (function () {
         }
         self.active = type;
         return new Promise(function (resolve, reject) {
-            window.parent.postMessage(__assign({ application: APP_NAME, type: type }, (args || {})), '*');
+            postMessage_1.postMessage(__assign({ application: APP_NAME, type: type }, (args || {})));
             function handleWindowMessage(ev) {
                 if (!ev.data || ev.data.application !== APP_NAME) {
                     return;
@@ -181,9 +197,9 @@ var Sphinx = /** @class */ (function () {
                     self.active = null;
                     resolve(ev.data);
                 }
-                window.removeEventListener('message', handleWindowMessage);
+                postMessage_1.removeEventer(handleWindowMessage);
             }
-            window.addEventListener('message', handleWindowMessage);
+            postMessage_1.addEventer(handleWindowMessage);
         });
     };
     return Sphinx;
