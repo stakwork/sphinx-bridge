@@ -1,0 +1,25 @@
+{
+  "name": "sphinx-bridge",
+  "version": "0.1.1",
+  "description": "Embed apps within Sphinx",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build-web": "tsc && webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sphinx",
+    "bitcoin",
+    "lightning"
+  ],
+  "author": "Evan Feenstra",
+  "license": "ISC",
+  "devDependencies": {
+    "terser-webpack-plugin": "^4.0.0",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}

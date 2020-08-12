@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Sphinx Bridge Iframe</title>
+      <script src="../sphinx/sphinx.min.js"></script>
+      <style>
+         html{font-family:"Courier New",Courier;height:100%;font-weight:bold;}
+         body{
+            margin:0;height:100%;
+            background-color:white;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-around;
+         }
+         #content{
+            display: none;
+         }
+         #result{
+            margin-bottom:16px;
+         }
+      </style>
+   </head>
+   <body>
+      <div>My App</div>
+      <button id="auth" onclick="authorize()">Authorize</button>
+      <div id="content">
+         <div id="result"></div>
+         <input id="sats" placeholder="sats" />
+         <button id="pay" onclick="pay()">KEYSEND</button>
+      </div>
+<script>
+   var result = document.getElementById('result')
+   function authorize(){
+      window.sphinx.enable().then((r)=>{
+         if(!r) return
+         var budget = r.budget
+         document.getElementById('auth').style.display='none'
+         result.innerHTML = 'AUTHORIZED!!! budget: '+budget
+         document.getElementById('content').style.display='block'
+      })
+   }
+   function pay(){
+      var val = document.getElementById('sats').value
+      var theVal = parseInt(val)
+      if(!theVal) return
+      window.sphinx.keysend(
+         '037287e1cb2690914886f51d7188d904a8c9e19b691509e6890212b158438ecd54',
+         theVal,
+      ).then(r=>{
+         if(r && r.success) {
+            document.getElementById('sats').value = ''
+            result.innerHTML = 'AUTHORIZED!!! budget: '+r.budget
+         }
+      })
+   }
+</script>
+   </body>
+</html>
