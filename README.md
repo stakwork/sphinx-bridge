@@ -1,6 +1,6 @@
 # sphinx-bridge
 
-**library for application embedded withing Sphinx apps**
+**library for applications embedded within Sphinx apps**
 
 ### API
 ```js
