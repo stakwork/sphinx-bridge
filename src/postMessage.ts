@@ -22,7 +22,11 @@ export function addEventer(func:any) {
     return
   }
   if(win.ReactNativeWebView&&win.ReactNativeWebView.postMessage) { // android ReactNativeWebview
-    document.addEventListener('message', func)
+    document.addEventListener('message', (e:any)=>{
+      let final = {}
+      try {final = JSON.parse(e.data)}catch(e){}
+      func({data:final})
+    })
   }
   win.addEventListener('message', func)
 }

@@ -23,7 +23,14 @@ function addEventer(func) {
         return;
     }
     if (win.ReactNativeWebView && win.ReactNativeWebView.postMessage) { // android ReactNativeWebview
-        document.addEventListener('message', func);
+        document.addEventListener('message', function (e) {
+            var final = {};
+            try {
+                final = JSON.parse(e.data);
+            }
+            catch (e) { }
+            func({ data: final });
+        });
     }
     win.addEventListener('message', func);
 }
