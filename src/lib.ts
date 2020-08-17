@@ -1,6 +1,8 @@
 import { SphinxProvider, EnableRes, KeysendRes, KeysendArgs } from './provider'
 import {postMessage, addEventer, removeEventer} from './postMessage'
 
+// request layout: toggle vs sidebar
+
 export enum MSG_TYPE {
   AUTHORIZE = 'AUTHORIZE',
   INFO = 'INFO',
@@ -10,6 +12,9 @@ export enum MSG_TYPE {
   INVOICE = 'INVOICE',
   SIGN = 'SIGN',
   VERIFY = 'VERIFY',
+  LOGIN = 'LOGIN',
+  MEME = 'MEME',
+  MESSAGE = 'MESSAGE'
 }
 
 const APP_NAME='Sphinx'

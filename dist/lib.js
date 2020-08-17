@@ -49,6 +49,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MSG_TYPE = void 0;
 var postMessage_1 = require("./postMessage");
+// request layout: toggle vs sidebar
 var MSG_TYPE;
 (function (MSG_TYPE) {
     MSG_TYPE["AUTHORIZE"] = "AUTHORIZE";
@@ -59,6 +60,9 @@ var MSG_TYPE;
     MSG_TYPE["INVOICE"] = "INVOICE";
     MSG_TYPE["SIGN"] = "SIGN";
     MSG_TYPE["VERIFY"] = "VERIFY";
+    MSG_TYPE["LOGIN"] = "LOGIN";
+    MSG_TYPE["MEME"] = "MEME";
+    MSG_TYPE["MESSAGE"] = "MESSAGE";
 })(MSG_TYPE = exports.MSG_TYPE || (exports.MSG_TYPE = {}));
 var APP_NAME = 'Sphinx';
 var Sphinx = /** @class */ (function () {

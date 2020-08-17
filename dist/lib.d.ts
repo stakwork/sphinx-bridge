@@ -7,7 +7,10 @@ export declare enum MSG_TYPE {
     PAYMENT = "PAYMENT",
     INVOICE = "INVOICE",
     SIGN = "SIGN",
-    VERIFY = "VERIFY"
+    VERIFY = "VERIFY",
+    LOGIN = "LOGIN",
+    MEME = "MEME",
+    MESSAGE = "MESSAGE"
 }
 export default class Sphinx implements SphinxProvider {
     private isEnabled;
