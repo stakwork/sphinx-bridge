@@ -180,6 +180,114 @@ var Sphinx = /** @class */ (function () {
             });
         });
     };
+    Sphinx.prototype.sendPayment = function (paymentRequest) {
+        return __awaiter(this, void 0, void 0, function () {
+            var r, e_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (this.logging)
+                            console.log('=> SEND PAYMENT');
+                        if (!this.isEnabled)
+                            return [2 /*return*/, null];
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.PAYMENT, { paymentRequest: paymentRequest })];
+                    case 2:
+                        r = _a.sent();
+                        return [2 /*return*/, r];
+                    case 3:
+                        e_4 = _a.sent();
+                        if (this.logging)
+                            console.log(e_4);
+                        return [2 /*return*/, null];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Sphinx.prototype.makeInvoice = function (amt, memo) {
+        return __awaiter(this, void 0, void 0, function () {
+            var r, e_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (this.logging)
+                            console.log('=> MAKE INVOICE');
+                        if (!this.isEnabled)
+                            return [2 /*return*/, null];
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.INVOICE, { amt: amt, memo: memo })];
+                    case 2:
+                        r = _a.sent();
+                        return [2 /*return*/, r];
+                    case 3:
+                        e_5 = _a.sent();
+                        if (this.logging)
+                            console.log(e_5);
+                        return [2 /*return*/, null];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Sphinx.prototype.signMessage = function (message) {
+        return __awaiter(this, void 0, void 0, function () {
+            var r, e_6;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (this.logging)
+                            console.log('=> SIGN MESSAGE');
+                        if (!this.isEnabled)
+                            return [2 /*return*/, null];
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.SIGN, { message: message })];
+                    case 2:
+                        r = _a.sent();
+                        return [2 /*return*/, r];
+                    case 3:
+                        e_6 = _a.sent();
+                        if (this.logging)
+                            console.log(e_6);
+                        return [2 /*return*/, null];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Sphinx.prototype.verifyMessage = function (signature, message) {
+        return __awaiter(this, void 0, void 0, function () {
+            var r, e_7;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (this.logging)
+                            console.log('=> VERIFY MESSAGE');
+                        if (!this.isEnabled)
+                            return [2 /*return*/, null];
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.SIGN, { signature: signature, message: message })];
+                    case 2:
+                        r = _a.sent();
+                        return [2 /*return*/, r];
+                    case 3:
+                        e_7 = _a.sent();
+                        if (this.logging)
+                            console.log(e_7);
+                        return [2 /*return*/, null];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
     // Internal prompt handler
     Sphinx.prototype.postMsg = function (type, args) {
         var self = this;

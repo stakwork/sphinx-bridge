@@ -1,4 +1,4 @@
-import { SphinxProvider, EnableRes, KeysendRes, KeysendArgs } from './provider'
+import { SphinxProvider, EnableRes, KeysendRes, KeysendArgs, SendPaymentRes, InvoiceRes, InvoiceArgs, SignMessageRes, SignMessageArgs, VerifyMessageArgs } from './provider'
 import {postMessage, addEventer, removeEventer} from './postMessage'
 
 // request layout: toggle vs sidebar
@@ -76,6 +76,54 @@ export default class Sphinx implements SphinxProvider {
     if (!this.isEnabled) return null
     try {
       const r = await this.postMsg(MSG_TYPE.UPDATED)
+      return r
+    } catch(e) {
+      if(this.logging) console.log(e)
+      return null
+    }
+  }
+
+  async sendPayment(paymentRequest: string) {
+    if(this.logging) console.log('=> SEND PAYMENT')
+    if (!this.isEnabled) return null
+    try {
+      const r = await this.postMsg<SendPaymentRes,InvoiceRes>(MSG_TYPE.PAYMENT, {paymentRequest})
+      return r
+    } catch(e) {
+      if(this.logging) console.log(e)
+      return null
+    }
+  }
+
+  async makeInvoice(amt: number, memo: string) {
+    if(this.logging) console.log('=> MAKE INVOICE')
+    if (!this.isEnabled) return null
+    try {
+      const r = await this.postMsg<InvoiceRes,InvoiceArgs>(MSG_TYPE.INVOICE, {amt,memo})
+      return r
+    } catch(e) {
+      if(this.logging) console.log(e)
+      return null
+    }
+  }
+
+  async signMessage(message: string) {
+    if(this.logging) console.log('=> SIGN MESSAGE')
+    if (!this.isEnabled) return null
+    try {
+      const r = await this.postMsg<SignMessageRes,SignMessageArgs>(MSG_TYPE.SIGN, {message})
+      return r
+    } catch(e) {
+      if(this.logging) console.log(e)
+      return null
+    }
+  }
+
+  async verifyMessage(signature: string, message: string) {
+    if(this.logging) console.log('=> VERIFY MESSAGE')
+    if (!this.isEnabled) return null
+    try {
+      const r = await this.postMsg<boolean,VerifyMessageArgs>(MSG_TYPE.SIGN, {signature,message})
       return r
     } catch(e) {
       if(this.logging) console.log(e)

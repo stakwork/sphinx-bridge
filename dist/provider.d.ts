@@ -10,8 +10,32 @@ export interface KeysendRes {
     success: boolean;
     budget: number;
 }
+export interface SendPaymentRes {
+    preimage: string;
+}
+export interface InvoiceArgs {
+    amt: number;
+    memo: string;
+}
+export interface InvoiceRes {
+    paymentRequest: string;
+}
+export interface SignMessageArgs {
+    message: string;
+}
+export interface SignMessageRes {
+    signature: string;
+}
+export interface VerifyMessageArgs {
+    message: string;
+    signature: string;
+}
 export interface SphinxProvider {
     enable(): Promise<EnableRes | null>;
     keysend(dest: string, amt: number): Promise<KeysendRes | null>;
     updated(): Promise<undefined | null>;
+    sendPayment(paymentRequest: string): Promise<SendPaymentRes | null>;
+    makeInvoice(amt: number, memo: string): Promise<InvoiceRes | null>;
+    signMessage(message: string): Promise<SignMessageRes | null>;
+    verifyMessage(signature: string, message: string): Promise<boolean | null>;
 }
