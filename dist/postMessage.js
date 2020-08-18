@@ -9,7 +9,8 @@ function postMessage(data) {
     if (win.ReactNativeWebView && win.ReactNativeWebView.postMessage) {
         win.ReactNativeWebView.postMessage(JSON.stringify(data));
     }
-    if (win.webkit.iosHandler) {
+    if (win.webkit && win.webkit.messageHandlers && win.webkit.messageHandlers.sphinx && win.webkit.messageHandlers.sphinx) {
+        win.webkit.messageHandlers.sphinx.postMessage(data);
     }
     // browser iframe
     win.parent.postMessage(data, '*');
@@ -32,6 +33,16 @@ function addEventer(func) {
             func({ data: final });
         });
     }
+    if (win.webkit && win.webkit.messageHandlers && win.webkit.messageHandlers.sphinx && win.webkit.messageHandlers.sphinx) {
+        win.sphinxMessage = function (e) {
+            var final = {};
+            try {
+                final = JSON.parse(e);
+            }
+            catch (e) { }
+            func({ data: final });
+        };
+    }
     win.addEventListener('message', func);
 }
 exports.addEventer = addEventer;
@@ -42,6 +53,9 @@ function removeEventer(func) {
     }
     if (win.ReactNativeWebView && win.ReactNativeWebView.postMessage) { // android ReactNativeWebview
         document.removeEventListener('message', func);
+    }
+    if (win.webkit && win.webkit.messageHandlers && win.webkit.messageHandlers.sphinx && win.webkit.messageHandlers.sphinx) {
+        win.sphinxMessage = null;
     }
     win.removeEventListener('message', func);
 }
