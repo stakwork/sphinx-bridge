@@ -138,7 +138,7 @@ var Sphinx = /** @class */ (function () {
                         if (this.logging)
                             console.log(e_2);
                         return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                    case 4: return [2 /*return*/, null];
                 }
             });
         });

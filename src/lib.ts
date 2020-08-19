@@ -62,6 +62,7 @@ export default class Sphinx implements SphinxProvider {
     } catch(e) {
       if(this.logging) console.log(e)
     }
+    return null
   }
 
   async keysend(dest: string, amt: number) {

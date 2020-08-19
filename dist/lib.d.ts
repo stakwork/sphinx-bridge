@@ -23,7 +23,7 @@ export default class Sphinx implements SphinxProvider {
         pubkey: string;
         application: string;
     } | null>;
-    topup(): Promise<EnableRes | undefined>;
+    topup(): Promise<EnableRes | null>;
     keysend(dest: string, amt: number): Promise<KeysendRes | null>;
     updated(): Promise<null | undefined>;
     sendPayment(paymentRequest: string): Promise<SendPaymentRes | null>;

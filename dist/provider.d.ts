@@ -32,6 +32,7 @@ export interface VerifyMessageArgs {
 }
 export interface SphinxProvider {
     enable(): Promise<EnableRes | null>;
+    topup(): Promise<EnableRes | null>;
     keysend(dest: string, amt: number): Promise<KeysendRes | null>;
     updated(): Promise<undefined | null>;
     sendPayment(paymentRequest: string): Promise<SendPaymentRes | null>;
