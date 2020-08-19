@@ -128,7 +128,7 @@ var Sphinx = /** @class */ (function () {
                     case 2:
                         r = _a.sent();
                         if (r.budget && r.pubkey) {
-                            this.budget = r.budget;
+                            this.budget = this.budget + r.budget;
                             this.pubkey = r.pubkey;
                             return [2 /*return*/, r];
                         }
