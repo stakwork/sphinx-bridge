@@ -50,6 +50,20 @@ export default class Sphinx implements SphinxProvider {
     return null
   }
 
+  async topup() {
+    if(this.logging) console.log('=> TOP UP')
+    try {
+      const r = await this.postMsg<EnableRes>(MSG_TYPE.AUTHORIZE)
+      if(r.budget && r.pubkey) {
+        this.budget = r.budget
+        this.pubkey = r.pubkey
+        return r
+      }
+    } catch(e) {
+      if(this.logging) console.log(e)
+    }
+  }
+
   async keysend(dest: string, amt: number) {
     if(this.logging) console.log('=> KEYSEND')
     if (!this.isEnabled) return null
