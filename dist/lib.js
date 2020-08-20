@@ -113,9 +113,42 @@ var Sphinx = /** @class */ (function () {
             });
         });
     };
-    Sphinx.prototype.topup = function () {
+    Sphinx.prototype.authorize = function (challenge, logging) {
         return __awaiter(this, void 0, void 0, function () {
             var r, e_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (logging)
+                            this.logging = true;
+                        if (this.logging)
+                            console.log('=> AUTHORIZE!');
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.AUTHORIZE, { challenge: challenge })];
+                    case 2:
+                        r = _a.sent();
+                        if (r.budget && r.pubkey) {
+                            this.isEnabled = true;
+                            this.budget = r.budget;
+                            this.pubkey = r.pubkey;
+                            return [2 /*return*/, r];
+                        }
+                        return [3 /*break*/, 4];
+                    case 3:
+                        e_2 = _a.sent();
+                        if (this.logging)
+                            console.log(e_2);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/, null];
+                }
+            });
+        });
+    };
+    Sphinx.prototype.topup = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var r, e_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -134,9 +167,9 @@ var Sphinx = /** @class */ (function () {
                         }
                         return [3 /*break*/, 4];
                     case 3:
-                        e_2 = _a.sent();
+                        e_3 = _a.sent();
                         if (this.logging)
-                            console.log(e_2);
+                            console.log(e_3);
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/, null];
                 }
@@ -145,7 +178,7 @@ var Sphinx = /** @class */ (function () {
     };
     Sphinx.prototype.keysend = function (dest, amt) {
         return __awaiter(this, void 0, void 0, function () {
-            var args, r, e_3;
+            var args, r, e_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -174,9 +207,9 @@ var Sphinx = /** @class */ (function () {
                         }
                         return [2 /*return*/, r];
                     case 3:
-                        e_3 = _a.sent();
+                        e_4 = _a.sent();
                         if (this.logging)
-                            console.log(e_3);
+                            console.log(e_4);
                         return [2 /*return*/, null];
                     case 4: return [2 /*return*/];
                 }
@@ -185,7 +218,7 @@ var Sphinx = /** @class */ (function () {
     };
     Sphinx.prototype.updated = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var r, e_4;
+            var r, e_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -201,9 +234,9 @@ var Sphinx = /** @class */ (function () {
                         r = _a.sent();
                         return [2 /*return*/, r];
                     case 3:
-                        e_4 = _a.sent();
+                        e_5 = _a.sent();
                         if (this.logging)
-                            console.log(e_4);
+                            console.log(e_5);
                         return [2 /*return*/, null];
                     case 4: return [2 /*return*/];
                 }
@@ -212,7 +245,7 @@ var Sphinx = /** @class */ (function () {
     };
     Sphinx.prototype.sendPayment = function (paymentRequest) {
         return __awaiter(this, void 0, void 0, function () {
-            var r, e_5;
+            var r, e_6;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -228,9 +261,9 @@ var Sphinx = /** @class */ (function () {
                         r = _a.sent();
                         return [2 /*return*/, r];
                     case 3:
-                        e_5 = _a.sent();
+                        e_6 = _a.sent();
                         if (this.logging)
-                            console.log(e_5);
+                            console.log(e_6);
                         return [2 /*return*/, null];
                     case 4: return [2 /*return*/];
                 }
@@ -239,7 +272,7 @@ var Sphinx = /** @class */ (function () {
     };
     Sphinx.prototype.makeInvoice = function (amt, memo) {
         return __awaiter(this, void 0, void 0, function () {
-            var r, e_6;
+            var r, e_7;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -255,9 +288,9 @@ var Sphinx = /** @class */ (function () {
                         r = _a.sent();
                         return [2 /*return*/, r];
                     case 3:
-                        e_6 = _a.sent();
+                        e_7 = _a.sent();
                         if (this.logging)
-                            console.log(e_6);
+                            console.log(e_7);
                         return [2 /*return*/, null];
                     case 4: return [2 /*return*/];
                 }
@@ -266,7 +299,7 @@ var Sphinx = /** @class */ (function () {
     };
     Sphinx.prototype.signMessage = function (message) {
         return __awaiter(this, void 0, void 0, function () {
-            var r, e_7;
+            var r, e_8;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -282,9 +315,9 @@ var Sphinx = /** @class */ (function () {
                         r = _a.sent();
                         return [2 /*return*/, r];
                     case 3:
-                        e_7 = _a.sent();
+                        e_8 = _a.sent();
                         if (this.logging)
-                            console.log(e_7);
+                            console.log(e_8);
                         return [2 /*return*/, null];
                     case 4: return [2 /*return*/];
                 }
@@ -293,7 +326,7 @@ var Sphinx = /** @class */ (function () {
     };
     Sphinx.prototype.verifyMessage = function (signature, message) {
         return __awaiter(this, void 0, void 0, function () {
-            var r, e_8;
+            var r, e_9;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -309,9 +342,9 @@ var Sphinx = /** @class */ (function () {
                         r = _a.sent();
                         return [2 /*return*/, r];
                     case 3:
-                        e_8 = _a.sent();
+                        e_9 = _a.sent();
                         if (this.logging)
-                            console.log(e_8);
+                            console.log(e_9);
                         return [2 /*return*/, null];
                     case 4: return [2 /*return*/];
                 }

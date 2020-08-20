@@ -1,4 +1,4 @@
-import { SphinxProvider, EnableRes, KeysendRes, SendPaymentRes, InvoiceRes, SignMessageRes } from './provider';
+import { SphinxProvider, EnableRes, KeysendRes, SendPaymentRes, InvoiceRes, SignMessageRes, AuthorizeRes } from './provider';
 export declare enum MSG_TYPE {
     AUTHORIZE = "AUTHORIZE",
     INFO = "INFO",
@@ -23,6 +23,7 @@ export default class Sphinx implements SphinxProvider {
         pubkey: string;
         application: string;
     } | null>;
+    authorize(challenge: string, logging?: boolean): Promise<AuthorizeRes | null>;
     topup(): Promise<EnableRes | null>;
     keysend(dest: string, amt: number): Promise<KeysendRes | null>;
     updated(): Promise<null | undefined>;

@@ -1,4 +1,4 @@
-import { SphinxProvider, EnableRes, KeysendRes, KeysendArgs, SendPaymentRes, InvoiceRes, InvoiceArgs, SignMessageRes, SignMessageArgs, VerifyMessageArgs } from './provider'
+import { SphinxProvider, EnableRes, KeysendRes, KeysendArgs, SendPaymentRes, InvoiceRes, InvoiceArgs, SignMessageRes, SignMessageArgs, VerifyMessageArgs, AuthorizeRes, AuthorizeArgs } from './provider'
 import {postMessage, addEventer, removeEventer} from './postMessage'
 
 // request layout: toggle vs sidebar
@@ -38,6 +38,23 @@ export default class Sphinx implements SphinxProvider {
     }
     try {
       const r = await this.postMsg<EnableRes>(MSG_TYPE.AUTHORIZE)
+      if(r.budget && r.pubkey) {
+        this.isEnabled = true
+        this.budget = r.budget
+        this.pubkey = r.pubkey
+        return r
+      }
+    } catch(e) {
+      if(this.logging) console.log(e)
+    }
+    return null
+  }
+
+  async authorize(challenge:string, logging?:boolean) {
+    if(logging) this.logging=true
+    if(this.logging) console.log('=> AUTHORIZE!')
+    try {
+      const r = await this.postMsg<AuthorizeRes,AuthorizeArgs>(MSG_TYPE.AUTHORIZE, {challenge})
       if(r.budget && r.pubkey) {
         this.isEnabled = true
         this.budget = r.budget

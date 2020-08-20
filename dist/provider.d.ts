@@ -1,3 +1,11 @@
+export interface AuthorizeRes {
+    budget: number;
+    pubkey: string;
+    signature: string;
+}
+export interface AuthorizeArgs {
+    challenge: string;
+}
 export interface EnableRes {
     budget: number;
     pubkey: string;
@@ -33,6 +41,7 @@ export interface VerifyMessageArgs {
 export interface SphinxProvider {
     enable(): Promise<EnableRes | null>;
     topup(): Promise<EnableRes | null>;
+    authorize(challenge: string): Promise<AuthorizeRes | null>;
     keysend(dest: string, amt: number): Promise<KeysendRes | null>;
     updated(): Promise<undefined | null>;
     sendPayment(paymentRequest: string): Promise<SendPaymentRes | null>;
