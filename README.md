@@ -2,8 +2,9 @@
 
 **library for applications embedded within Sphinx apps**
 
-### Loading into your app
+### Load into your app
 
+`npm install --save sphinx-bridge`
 ```js
 import * as sphinx from 'sphinx-bridge'
 ```
