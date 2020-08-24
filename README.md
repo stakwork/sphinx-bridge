@@ -2,10 +2,18 @@
 
 **library for applications embedded within Sphinx apps**
 
-### API
+### Loading into your app
+
 ```js
 import * as sphinx from 'sphinx-bridge'
 ```
+or
+```html
+<script src="https://unpkg.com/sphinx-bridge@0.2.4/sphinx/sphinx.min.js"></script>
+```
+
+### API
+
 - `sphinx.enable()`: Enable the sphinx library. This function will postMessage to the Sphinx app, requesting authorization, a budget to spend, and the user's pubkey (hex encoded)
 - `sphinx.keysend(pubkey, amount)`: Initiate a keysend (pubkey is hex encoded)
 - `sphinx.sendPayment(paymentRequest)`: Pay a Lightning invoice
