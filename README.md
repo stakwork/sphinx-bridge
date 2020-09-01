@@ -15,6 +15,8 @@ or
 
 ### API
 
+All functions return a Promise, that resolves when the action has been completed in the Sphinx App
+
 - `sphinx.enable()`: Enable the sphinx library. This function will postMessage to the Sphinx app, requesting authorization, a budget to spend, and the user's pubkey (hex encoded)
 - `sphinx.keysend(pubkey, amount)`: Initiate a keysend (pubkey is hex encoded)
 - `sphinx.sendPayment(paymentRequest)`: Pay a Lightning invoice

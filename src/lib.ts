@@ -72,7 +72,7 @@ export default class Sphinx implements SphinxProvider {
     try {
       const r = await this.postMsg<EnableRes>(MSG_TYPE.AUTHORIZE)
       if(r.budget && r.pubkey) {
-        this.budget = this.budget + r.budget
+        this.budget = r.budget
         this.pubkey = r.pubkey
         return r
       }
