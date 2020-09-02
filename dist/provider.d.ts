@@ -38,6 +38,9 @@ export interface VerifyMessageArgs {
     message: string;
     signature: string;
 }
+export interface ReloadArgs {
+    password: string;
+}
 export interface SphinxProvider {
     enable(): Promise<EnableRes | null>;
     topup(): Promise<EnableRes | null>;
@@ -48,4 +51,5 @@ export interface SphinxProvider {
     makeInvoice(amt: number, memo: string): Promise<InvoiceRes | null>;
     signMessage(message: string): Promise<SignMessageRes | null>;
     verifyMessage(signature: string, message: string): Promise<boolean | null>;
+    reload(password: string): Promise<EnableRes | null>;
 }

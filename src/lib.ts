@@ -1,4 +1,4 @@
-import { SphinxProvider, EnableRes, KeysendRes, KeysendArgs, SendPaymentRes, InvoiceRes, InvoiceArgs, SignMessageRes, SignMessageArgs, VerifyMessageArgs, AuthorizeRes, AuthorizeArgs } from './provider'
+import { SphinxProvider, EnableRes, KeysendRes, KeysendArgs, SendPaymentRes, InvoiceRes, InvoiceArgs, SignMessageRes, SignMessageArgs, VerifyMessageArgs, AuthorizeRes, AuthorizeArgs, ReloadArgs } from './provider'
 import {postMessage, addEventer, removeEventer} from './postMessage'
 
 // request layout: toggle vs sidebar
@@ -14,7 +14,8 @@ export enum MSG_TYPE {
   VERIFY = 'VERIFY',
   LOGIN = 'LOGIN',
   MEME = 'MEME',
-  MESSAGE = 'MESSAGE'
+  MESSAGE = 'MESSAGE',
+  RELOAD = 'RELOAD'
 }
 
 const APP_NAME='Sphinx'
@@ -38,7 +39,8 @@ export default class Sphinx implements SphinxProvider {
     }
     try {
       const r = await this.postMsg<EnableRes>(MSG_TYPE.AUTHORIZE)
-      if(r.budget && r.pubkey) {
+      const hasBudget = r.budget || r.budget===0
+      if(hasBudget && r.pubkey) {
         this.isEnabled = true
         this.budget = r.budget
         this.pubkey = r.pubkey
@@ -55,7 +57,8 @@ export default class Sphinx implements SphinxProvider {
     if(this.logging) console.log('=> AUTHORIZE!')
     try {
       const r = await this.postMsg<AuthorizeRes,AuthorizeArgs>(MSG_TYPE.AUTHORIZE, {challenge})
-      if(r.budget && r.pubkey) {
+      const hasBudget = r.budget || r.budget===0
+      if(hasBudget && r.pubkey) {
         this.isEnabled = true
         this.budget = r.budget
         this.pubkey = r.pubkey
@@ -71,7 +74,8 @@ export default class Sphinx implements SphinxProvider {
     if(this.logging) console.log('=> TOP UP')
     try {
       const r = await this.postMsg<EnableRes>(MSG_TYPE.AUTHORIZE)
-      if(r.budget && r.pubkey) {
+      const hasBudget = r.budget || r.budget===0
+      if(hasBudget && r.pubkey) {
         this.budget = r.budget
         this.pubkey = r.pubkey
         return r
@@ -161,6 +165,23 @@ export default class Sphinx implements SphinxProvider {
       if(this.logging) console.log(e)
       return null
     }
+  }
+
+  async reload(password: string) {
+    if(this.logging) console.log('=> RELOAD')
+    try {
+      const r = await this.postMsg<EnableRes, ReloadArgs>(MSG_TYPE.RELOAD, {password})
+      const hasBudget = r.budget || r.budget===0
+      if(hasBudget && r.pubkey) {
+        this.isEnabled = true
+        this.budget = r.budget
+        this.pubkey = r.pubkey
+        return r
+      }
+    } catch(e) {
+      if(this.logging) console.log(e)
+    }
+    return null
   }
 
   // Internal prompt handler

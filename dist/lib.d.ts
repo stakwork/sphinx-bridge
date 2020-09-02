@@ -10,7 +10,8 @@ export declare enum MSG_TYPE {
     VERIFY = "VERIFY",
     LOGIN = "LOGIN",
     MEME = "MEME",
-    MESSAGE = "MESSAGE"
+    MESSAGE = "MESSAGE",
+    RELOAD = "RELOAD"
 }
 export default class Sphinx implements SphinxProvider {
     private isEnabled;
@@ -31,5 +32,6 @@ export default class Sphinx implements SphinxProvider {
     makeInvoice(amt: number, memo: string): Promise<InvoiceRes | null>;
     signMessage(message: string): Promise<SignMessageRes | null>;
     verifyMessage(signature: string, message: string): Promise<boolean | null>;
+    reload(password: string): Promise<EnableRes | null>;
     private postMsg;
 }

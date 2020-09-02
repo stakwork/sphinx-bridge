@@ -63,6 +63,7 @@ var MSG_TYPE;
     MSG_TYPE["LOGIN"] = "LOGIN";
     MSG_TYPE["MEME"] = "MEME";
     MSG_TYPE["MESSAGE"] = "MESSAGE";
+    MSG_TYPE["RELOAD"] = "RELOAD";
 })(MSG_TYPE = exports.MSG_TYPE || (exports.MSG_TYPE = {}));
 var APP_NAME = 'Sphinx';
 var Sphinx = /** @class */ (function () {
@@ -75,7 +76,7 @@ var Sphinx = /** @class */ (function () {
     }
     Sphinx.prototype.enable = function (logging) {
         return __awaiter(this, void 0, void 0, function () {
-            var r, e_1;
+            var r, hasBudget, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -96,7 +97,8 @@ var Sphinx = /** @class */ (function () {
                         return [4 /*yield*/, this.postMsg(MSG_TYPE.AUTHORIZE)];
                     case 2:
                         r = _a.sent();
-                        if (r.budget && r.pubkey) {
+                        hasBudget = r.budget || r.budget === 0;
+                        if (hasBudget && r.pubkey) {
                             this.isEnabled = true;
                             this.budget = r.budget;
                             this.pubkey = r.pubkey;
@@ -115,7 +117,7 @@ var Sphinx = /** @class */ (function () {
     };
     Sphinx.prototype.authorize = function (challenge, logging) {
         return __awaiter(this, void 0, void 0, function () {
-            var r, e_2;
+            var r, hasBudget, e_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -129,7 +131,8 @@ var Sphinx = /** @class */ (function () {
                         return [4 /*yield*/, this.postMsg(MSG_TYPE.AUTHORIZE, { challenge: challenge })];
                     case 2:
                         r = _a.sent();
-                        if (r.budget && r.pubkey) {
+                        hasBudget = r.budget || r.budget === 0;
+                        if (hasBudget && r.pubkey) {
                             this.isEnabled = true;
                             this.budget = r.budget;
                             this.pubkey = r.pubkey;
@@ -148,7 +151,7 @@ var Sphinx = /** @class */ (function () {
     };
     Sphinx.prototype.topup = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var r, e_3;
+            var r, hasBudget, e_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -160,7 +163,8 @@ var Sphinx = /** @class */ (function () {
                         return [4 /*yield*/, this.postMsg(MSG_TYPE.AUTHORIZE)];
                     case 2:
                         r = _a.sent();
-                        if (r.budget && r.pubkey) {
+                        hasBudget = r.budget || r.budget === 0;
+                        if (hasBudget && r.pubkey) {
                             this.budget = r.budget;
                             this.pubkey = r.pubkey;
                             return [2 /*return*/, r];
@@ -347,6 +351,38 @@ var Sphinx = /** @class */ (function () {
                             console.log(e_9);
                         return [2 /*return*/, null];
                     case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Sphinx.prototype.reload = function (password) {
+        return __awaiter(this, void 0, void 0, function () {
+            var r, hasBudget, e_10;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (this.logging)
+                            console.log('=> RELOAD');
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.RELOAD, { password: password })];
+                    case 2:
+                        r = _a.sent();
+                        hasBudget = r.budget || r.budget === 0;
+                        if (hasBudget && r.pubkey) {
+                            this.isEnabled = true;
+                            this.budget = r.budget;
+                            this.pubkey = r.pubkey;
+                            return [2 /*return*/, r];
+                        }
+                        return [3 /*break*/, 4];
+                    case 3:
+                        e_10 = _a.sent();
+                        if (this.logging)
+                            console.log(e_10);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/, null];
                 }
             });
         });
