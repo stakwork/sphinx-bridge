@@ -24,7 +24,7 @@ export default class Sphinx implements SphinxProvider {
         pubkey: string;
         application: string;
     } | null>;
-    authorize(challenge: string, logging?: boolean): Promise<AuthorizeRes | null>;
+    authorize(challenge: string, no_budget?: boolean, logging?: boolean): Promise<AuthorizeRes | null>;
     topup(): Promise<EnableRes | null>;
     keysend(dest: string, amt: number): Promise<KeysendRes | null>;
     updated(): Promise<null | undefined>;

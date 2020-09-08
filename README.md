@@ -24,5 +24,5 @@ All functions return a Promise, that resolves when the action has been completed
 - `sphinx.signMessage(message)`: Request that the Sphinx app signs a message with Lightning private key
 - `sphinx.verifyMessage(signature, message)`: Verify a signed message
 - `sphinx.topup()`: Show the authorization modal again, so the user can top up their budget for the app
-- `sphinx.authorize(challenge)`: Request the Sphinx app to sign a challenge with their Lightning private key
+- `sphinx.authorize(challenge, noBudget)`: Request the Sphinx app to sign a challenge with their Lightning private key. "noBudget" boolean set to `true` will prevent the app from showing the budget input.
 - `sphinx.updated()`: Utility function to let Sphinx app know that something has happened out of band (like a payment has been received), so satoshi balance should be refreshed in app.

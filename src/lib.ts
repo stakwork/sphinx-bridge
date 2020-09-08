@@ -52,15 +52,18 @@ export default class Sphinx implements SphinxProvider {
     return null
   }
 
-  async authorize(challenge:string, logging?:boolean) {
+  async authorize(challenge:string, no_budget?:boolean, logging?:boolean) {
     if(logging) this.logging=true
     if(this.logging) console.log('=> AUTHORIZE!')
     try {
-      const r = await this.postMsg<AuthorizeRes,AuthorizeArgs>(MSG_TYPE.AUTHORIZE, {challenge})
+      const noBudget = no_budget || false
+      const r = await this.postMsg<AuthorizeRes,AuthorizeArgs>(MSG_TYPE.AUTHORIZE, {
+        challenge, noBudget
+      })
       const hasBudget = r.budget || r.budget===0
-      if(hasBudget && r.pubkey) {
+      if((noBudget||hasBudget) && r.pubkey) {
         this.isEnabled = true
-        this.budget = r.budget
+        this.budget = r.budget || 0
         this.pubkey = r.pubkey
         return r
       }

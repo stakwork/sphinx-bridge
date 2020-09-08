@@ -115,9 +115,9 @@ var Sphinx = /** @class */ (function () {
             });
         });
     };
-    Sphinx.prototype.authorize = function (challenge, logging) {
+    Sphinx.prototype.authorize = function (challenge, no_budget, logging) {
         return __awaiter(this, void 0, void 0, function () {
-            var r, hasBudget, e_2;
+            var noBudget, r, hasBudget, e_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -128,13 +128,16 @@ var Sphinx = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.postMsg(MSG_TYPE.AUTHORIZE, { challenge: challenge })];
+                        noBudget = no_budget || false;
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.AUTHORIZE, {
+                                challenge: challenge, noBudget: noBudget
+                            })];
                     case 2:
                         r = _a.sent();
                         hasBudget = r.budget || r.budget === 0;
-                        if (hasBudget && r.pubkey) {
+                        if ((noBudget || hasBudget) && r.pubkey) {
                             this.isEnabled = true;
-                            this.budget = r.budget;
+                            this.budget = r.budget || 0;
                             this.pubkey = r.pubkey;
                             return [2 /*return*/, r];
                         }

@@ -5,6 +5,7 @@ export interface AuthorizeRes {
 }
 export interface AuthorizeArgs {
   challenge: string;
+  noBudget: boolean;
 }
 export interface EnableRes {
   budget: number;
