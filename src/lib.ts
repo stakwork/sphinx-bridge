@@ -1,4 +1,4 @@
-import { SphinxProvider, EnableRes, KeysendRes, KeysendArgs, SendPaymentRes, InvoiceRes, InvoiceArgs, SignMessageRes, SignMessageArgs, VerifyMessageArgs, AuthorizeRes, AuthorizeArgs, ReloadArgs } from './provider'
+import { LsatRes, SphinxProvider, EnableRes, KeysendRes, KeysendArgs, SendPaymentRes, InvoiceRes, InvoiceArgs, SignMessageRes, SignMessageArgs, VerifyMessageArgs, AuthorizeRes, AuthorizeArgs, ReloadArgs } from './provider'
 import {postMessage, addEventer, removeEventer} from './postMessage'
 
 // request layout: toggle vs sidebar
@@ -15,7 +15,8 @@ export enum MSG_TYPE {
   LOGIN = 'LOGIN',
   MEME = 'MEME',
   MESSAGE = 'MESSAGE',
-  RELOAD = 'RELOAD'
+  RELOAD = 'RELOAD',
+  LSAT = 'LSAT'
 }
 
 const APP_NAME='Sphinx'
@@ -127,6 +128,18 @@ export default class Sphinx implements SphinxProvider {
     if (!this.isEnabled) return null
     try {
       const r = await this.postMsg<SendPaymentRes,InvoiceRes>(MSG_TYPE.PAYMENT, {paymentRequest})
+      return r
+    } catch(e) {
+      if(this.logging) console.log(e)
+      return null
+    }
+  }
+
+  async saveLsat(paymentRequest: string, macaroon: string, issuer: string) {
+    if(this.logging) console.log('=> SAVE LSAT')
+    if (!this.isEnabled) return null
+    try {
+      const r = await this.postMsg<SendPaymentRes,LsatRes>(MSG_TYPE.LSAT, {paymentRequest, macaroon, issuer})
       return r
     } catch(e) {
       if(this.logging) console.log(e)

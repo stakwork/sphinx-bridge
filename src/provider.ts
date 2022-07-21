@@ -29,6 +29,11 @@ export interface InvoiceArgs {
 export interface InvoiceRes {
   paymentRequest: string;
 }
+export interface LsatRes{
+  paymentRequest: string;
+  macaroon: string;
+  issuer: string;
+}
 export interface SignMessageArgs {
   message: string;
 }
