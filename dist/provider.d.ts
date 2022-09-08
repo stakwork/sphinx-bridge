@@ -34,6 +34,10 @@ export interface LsatRes {
     macaroon: string;
     issuer: string;
 }
+export interface SendLsatRes {
+    success: boolean;
+    budget: number;
+}
 export interface SignMessageArgs {
     message: string;
 }

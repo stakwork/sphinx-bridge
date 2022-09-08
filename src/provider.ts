@@ -12,8 +12,8 @@ export interface EnableRes {
   pubkey: string;
 }
 export interface KeysendArgs {
-  amt: number,
-  dest: string,
+  amt: number;
+  dest: string;
 }
 export interface KeysendRes {
   success: boolean;
@@ -23,17 +23,22 @@ export interface SendPaymentRes {
   preimage: string;
 }
 export interface InvoiceArgs {
-  amt: number,
-  memo: string,
+  amt: number;
+  memo: string;
 }
 export interface InvoiceRes {
   paymentRequest: string;
 }
-export interface LsatRes{
+export interface LsatRes {
   paymentRequest: string;
   macaroon: string;
   issuer: string;
 }
+export interface SendLsatRes {
+  success: boolean;
+  budget: number;
+}
+
 export interface SignMessageArgs {
   message: string;
 }
@@ -49,25 +54,23 @@ export interface ReloadArgs {
 }
 
 export interface SphinxProvider {
+  enable(): Promise<EnableRes | null>;
 
-  enable(): Promise<EnableRes|null>;
+  topup(): Promise<EnableRes | null>;
 
-  topup(): Promise<EnableRes|null>;
+  authorize(challenge: string): Promise<AuthorizeRes | null>;
 
-  authorize(challenge: string): Promise<AuthorizeRes|null>;
+  keysend(dest: string, amt: number): Promise<KeysendRes | null>;
 
-  keysend(dest: string, amt: number): Promise<KeysendRes|null>;
+  updated(): Promise<undefined | null>;
 
-  updated(): Promise<undefined|null>;
+  sendPayment(paymentRequest: string): Promise<SendPaymentRes | null>;
 
-  sendPayment(paymentRequest: string): Promise<SendPaymentRes|null>;
+  makeInvoice(amt: number, memo: string): Promise<InvoiceRes | null>;
 
-  makeInvoice(amt: number, memo: string): Promise<InvoiceRes|null>;
+  signMessage(message: string): Promise<SignMessageRes | null>;
 
-  signMessage(message: string): Promise<SignMessageRes|null>;
+  verifyMessage(signature: string, message: string): Promise<boolean | null>;
 
-  verifyMessage(signature: string, message: string): Promise<boolean|null>;
-
-  reload(password: string): Promise<EnableRes|null>;
-
+  reload(password: string): Promise<EnableRes | null>;
 }

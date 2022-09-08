@@ -16,7 +16,7 @@ module.exports = {
   },
   target:'web',
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js', '.json']
   },
   optimization: {
     minimizer: [new TerserPlugin()],
