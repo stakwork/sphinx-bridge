@@ -14,6 +14,8 @@ import {
   AuthorizeRes,
   AuthorizeArgs,
   ReloadArgs,
+  SaveDataArgs,
+  SaveDataRes,
 } from "./provider";
 import { postMessage, addEventer, removeEventer } from "./postMessage";
 // @ts-ignore
@@ -35,6 +37,7 @@ export enum MSG_TYPE {
   MESSAGE = "MESSAGE",
   RELOAD = "RELOAD",
   LSAT = "LSAT",
+  SAVEDATA = "SAVEDATA",
 }
 
 const APP_NAME = "Sphinx";
@@ -163,11 +166,7 @@ export default class Sphinx implements SphinxProvider {
     }
   }
 
-  async saveLsat(
-    paymentRequest: string,
-    macaroon: string,
-    issuer: string,
-  ) {
+  async saveLsat(paymentRequest: string, macaroon: string, issuer: string) {
     if (this.logging) console.log("=> SAVE LSAT");
     try {
       const r = await this.postMsg<SendLsatRes, LsatRes>(MSG_TYPE.LSAT, {
@@ -244,6 +243,23 @@ export default class Sphinx implements SphinxProvider {
       if (this.logging) console.log(e);
     }
     return null;
+  }
+
+  async saveGraphData(data: SaveDataArgs) {
+    if (this.logging) console.log("=> SAVEDATA");
+    if (!this.isEnabled) return null;
+    try {
+      const r = await this.postMsg<SaveDataRes, SaveDataArgs>(
+        MSG_TYPE.SAVEDATA,
+        {
+          ...data,
+        }
+      );
+      return r;
+    } catch (error) {
+      if (this.logging) console.log(error);
+      return null;
+    }
   }
 
   // Internal prompt handler

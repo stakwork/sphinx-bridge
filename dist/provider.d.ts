@@ -51,6 +51,27 @@ export interface VerifyMessageArgs {
 export interface ReloadArgs {
     password: string;
 }
+export interface SaveDataArgs {
+    boost: number;
+    data: number;
+    description: string;
+    episode_title: string;
+    guests: string[];
+    image_url: string;
+    keyword: boolean;
+    link: string;
+    node_type: string;
+    ref_id: string;
+    show_tile: string;
+    text: string;
+    timestamp: string;
+    topics: string[];
+    type: string;
+    weight: number;
+}
+export interface SaveDataRes {
+    success: boolean;
+}
 export interface SphinxProvider {
     enable(): Promise<EnableRes | null>;
     topup(): Promise<EnableRes | null>;
