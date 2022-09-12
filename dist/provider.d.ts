@@ -52,22 +52,8 @@ export interface ReloadArgs {
     password: string;
 }
 export interface SaveDataArgs {
-    boost: number;
-    data: number;
-    description: string;
-    episode_title: string;
-    guests: string[];
-    image_url: string;
-    keyword: boolean;
-    link: string;
-    node_type: string;
-    ref_id: string;
-    show_tile: string;
-    text: string;
-    timestamp: string;
-    topics: string[];
     type: string;
-    weight: number;
+    metaData: any;
 }
 export interface SaveDataRes {
     success: boolean;
@@ -83,4 +69,5 @@ export interface SphinxProvider {
     signMessage(message: string): Promise<SignMessageRes | null>;
     verifyMessage(signature: string, message: string): Promise<boolean | null>;
     reload(password: string): Promise<EnableRes | null>;
+    saveGraphData(data: SaveDataArgs): Promise<SaveDataRes | null>;
 }
