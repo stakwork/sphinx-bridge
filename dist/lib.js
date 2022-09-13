@@ -438,12 +438,12 @@ var Sphinx = /** @class */ (function () {
                     case 0:
                         if (this.logging)
                             console.log("=> SAVEDATA");
-                        if (!this.isEnabled)
-                            return [2 /*return*/, null];
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.postMsg(MSG_TYPE.SAVEDATA, __assign({}, data))];
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.SAVEDATA, {
+                                data: { type: data.type, metaData: data.metaData },
+                            })];
                     case 2:
                         r = _a.sent();
                         return [2 /*return*/, r];

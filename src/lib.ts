@@ -249,10 +249,10 @@ export default class Sphinx implements SphinxProvider {
     if (this.logging) console.log("=> SAVEDATA");
     if (!this.isEnabled) return null;
     try {
-      const r = await this.postMsg<SaveDataRes, SaveDataArgs>(
+      const r = await this.postMsg<SaveDataRes, {data: SaveDataArgs} >(
         MSG_TYPE.SAVEDATA,
         {
-          ...data,
+          data: { type: data.type, metaData: data.metaData },
         }
       );
       return r;
