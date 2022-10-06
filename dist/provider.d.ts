@@ -34,6 +34,23 @@ export interface LsatRes {
     macaroon: string;
     issuer: string;
 }
+export interface GetLsatRes {
+    paymentRequest: string;
+    macaroon: string;
+    issuer: string;
+    identifier: string;
+    preimage: string;
+    paths: string;
+    status: string;
+    success: boolean;
+}
+export interface UpdateLsatRes {
+    success: boolean;
+}
+export interface UpdateLsatArgs {
+    identifier: string;
+    status: string;
+}
 export interface SendLsatRes {
     success: boolean;
     budget: number;

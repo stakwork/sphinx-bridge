@@ -66,6 +66,8 @@ var MSG_TYPE;
     MSG_TYPE["RELOAD"] = "RELOAD";
     MSG_TYPE["LSAT"] = "LSAT";
     MSG_TYPE["SAVEDATA"] = "SAVEDATA";
+    MSG_TYPE["GETLSAT"] = "GETLSAT";
+    MSG_TYPE["UPDATELSAT"] = "UPDATELSAT";
 })(MSG_TYPE = exports.MSG_TYPE || (exports.MSG_TYPE = {}));
 var APP_NAME = "Sphinx";
 var Sphinx = /** @class */ (function () {
@@ -309,9 +311,63 @@ var Sphinx = /** @class */ (function () {
             });
         });
     };
-    Sphinx.prototype.makeInvoice = function (amt, memo) {
+    Sphinx.prototype.getLsat = function () {
         return __awaiter(this, void 0, void 0, function () {
             var r, e_8;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (this.logging)
+                            console.log("=> GET LSAT");
+                        if (!this.isEnabled)
+                            return [2 /*return*/, null];
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.GETLSAT)];
+                    case 2:
+                        r = _a.sent();
+                        return [2 /*return*/, r];
+                    case 3:
+                        e_8 = _a.sent();
+                        if (this.logging)
+                            console.log(e_8);
+                        return [2 /*return*/, e_8];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Sphinx.prototype.updateLsat = function (identifier, status) {
+        return __awaiter(this, void 0, void 0, function () {
+            var r, e_9;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (this.logging)
+                            console.log("=> GET LSAT");
+                        if (!this.isEnabled)
+                            return [2 /*return*/, null];
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.UPDATELSAT, { identifier: identifier, status: status })];
+                    case 2:
+                        r = _a.sent();
+                        return [2 /*return*/, r];
+                    case 3:
+                        e_9 = _a.sent();
+                        if (this.logging)
+                            console.log(e_9);
+                        return [2 /*return*/, e_9];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Sphinx.prototype.makeInvoice = function (amt, memo) {
+        return __awaiter(this, void 0, void 0, function () {
+            var r, e_10;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -330,9 +386,9 @@ var Sphinx = /** @class */ (function () {
                         r = _a.sent();
                         return [2 /*return*/, r];
                     case 3:
-                        e_8 = _a.sent();
+                        e_10 = _a.sent();
                         if (this.logging)
-                            console.log(e_8);
+                            console.log(e_10);
                         return [2 /*return*/, null];
                     case 4: return [2 /*return*/];
                 }
@@ -341,7 +397,7 @@ var Sphinx = /** @class */ (function () {
     };
     Sphinx.prototype.signMessage = function (message) {
         return __awaiter(this, void 0, void 0, function () {
-            var r, e_9;
+            var r, e_11;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -357,9 +413,9 @@ var Sphinx = /** @class */ (function () {
                         r = _a.sent();
                         return [2 /*return*/, r];
                     case 3:
-                        e_9 = _a.sent();
+                        e_11 = _a.sent();
                         if (this.logging)
-                            console.log(e_9);
+                            console.log(e_11);
                         return [2 /*return*/, null];
                     case 4: return [2 /*return*/];
                 }
@@ -368,7 +424,7 @@ var Sphinx = /** @class */ (function () {
     };
     Sphinx.prototype.verifyMessage = function (signature, message) {
         return __awaiter(this, void 0, void 0, function () {
-            var r, e_10;
+            var r, e_12;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -387,9 +443,9 @@ var Sphinx = /** @class */ (function () {
                         r = _a.sent();
                         return [2 /*return*/, r];
                     case 3:
-                        e_10 = _a.sent();
+                        e_12 = _a.sent();
                         if (this.logging)
-                            console.log(e_10);
+                            console.log(e_12);
                         return [2 /*return*/, null];
                     case 4: return [2 /*return*/];
                 }
@@ -398,7 +454,7 @@ var Sphinx = /** @class */ (function () {
     };
     Sphinx.prototype.reload = function (password) {
         return __awaiter(this, void 0, void 0, function () {
-            var r, hasBudget, e_11;
+            var r, hasBudget, e_13;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -421,9 +477,9 @@ var Sphinx = /** @class */ (function () {
                         }
                         return [3 /*break*/, 4];
                     case 3:
-                        e_11 = _a.sent();
+                        e_13 = _a.sent();
                         if (this.logging)
-                            console.log(e_11);
+                            console.log(e_13);
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/, null];
                 }
@@ -438,6 +494,8 @@ var Sphinx = /** @class */ (function () {
                     case 0:
                         if (this.logging)
                             console.log("=> SAVEDATA");
+                        if (!this.isEnabled)
+                            return [2 /*return*/, null];
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);

@@ -13,7 +13,9 @@ export declare enum MSG_TYPE {
     MESSAGE = "MESSAGE",
     RELOAD = "RELOAD",
     LSAT = "LSAT",
-    SAVEDATA = "SAVEDATA"
+    SAVEDATA = "SAVEDATA",
+    GETLSAT = "GETLSAT",
+    UPDATELSAT = "UPDATELSAT"
 }
 export default class Sphinx implements SphinxProvider {
     private isEnabled;
@@ -32,6 +34,8 @@ export default class Sphinx implements SphinxProvider {
     updated(): Promise<null | undefined>;
     sendPayment(paymentRequest: string): Promise<SendPaymentRes | null>;
     saveLsat(paymentRequest: string, macaroon: string, issuer: string): Promise<any>;
+    getLsat(): Promise<any>;
+    updateLsat(identifier: string, status: string): Promise<any>;
     makeInvoice(amt: number, memo: string): Promise<InvoiceRes | null>;
     signMessage(message: string): Promise<SignMessageRes | null>;
     verifyMessage(signature: string, message: string): Promise<boolean | null>;

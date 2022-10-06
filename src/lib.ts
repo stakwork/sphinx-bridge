@@ -16,6 +16,9 @@ import {
   ReloadArgs,
   SaveDataArgs,
   SaveDataRes,
+  GetLsatRes,
+  UpdateLsatArgs,
+  UpdateLsatRes,
 } from "./provider";
 import { postMessage, addEventer, removeEventer } from "./postMessage";
 // @ts-ignore
@@ -38,6 +41,8 @@ export enum MSG_TYPE {
   RELOAD = "RELOAD",
   LSAT = "LSAT",
   SAVEDATA = "SAVEDATA",
+  GETLSAT = "GETLSAT",
+  UPDATELSAT = "UPDATELSAT",
 }
 
 const APP_NAME = "Sphinx";
@@ -181,6 +186,33 @@ export default class Sphinx implements SphinxProvider {
     }
   }
 
+  async getLsat() {
+    if (this.logging) console.log("=> GET LSAT");
+    if (!this.isEnabled) return null;
+    try {
+      const r = await this.postMsg<GetLsatRes>(MSG_TYPE.GETLSAT);
+      return r;
+    } catch (e) {
+      if (this.logging) console.log(e);
+      return e;
+    }
+  }
+
+  async updateLsat(identifier: string, status: string) {
+    if (this.logging) console.log("=> GET LSAT");
+    if (!this.isEnabled) return null;
+    try {
+      const r = await this.postMsg<UpdateLsatRes, UpdateLsatArgs>(
+        MSG_TYPE.UPDATELSAT,
+        { identifier, status }
+      );
+      return r;
+    } catch (e) {
+      if (this.logging) console.log(e);
+      return e;
+    }
+  }
+
   async makeInvoice(amt: number, memo: string) {
     if (this.logging) console.log("=> MAKE INVOICE");
     if (!this.isEnabled) return null;
@@ -249,7 +281,7 @@ export default class Sphinx implements SphinxProvider {
     if (this.logging) console.log("=> SAVEDATA");
     if (!this.isEnabled) return null;
     try {
-      const r = await this.postMsg<SaveDataRes, {data: SaveDataArgs} >(
+      const r = await this.postMsg<SaveDataRes, { data: SaveDataArgs }>(
         MSG_TYPE.SAVEDATA,
         {
           data: { type: data.type, metaData: data.metaData },
