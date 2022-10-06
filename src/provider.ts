@@ -53,6 +53,15 @@ export interface ReloadArgs {
   password: string;
 }
 
+export interface SaveDataArgs {
+  type: string;
+  metaData: any;
+}
+
+export interface SaveDataRes {
+  success: boolean;
+}
+
 export interface SphinxProvider {
   enable(): Promise<EnableRes | null>;
 
@@ -73,4 +82,6 @@ export interface SphinxProvider {
   verifyMessage(signature: string, message: string): Promise<boolean | null>;
 
   reload(password: string): Promise<EnableRes | null>;
+
+  saveGraphData(data: SaveDataArgs): Promise<SaveDataRes | null>;
 }
