@@ -1,5 +1,5 @@
 {
-  "name": "sphinx-bridge-kevkevinpal",
+  "name": "sphinx-bridge",
   "version": "0.2.50",
   "description": "Embed apps within Sphinx",
   "main": "dist/index.js",

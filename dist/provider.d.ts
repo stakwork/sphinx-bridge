@@ -51,6 +51,7 @@ export interface UpdateLsatArgs {
     identifier: string;
     status: string;
 }
+
 export interface SendLsatRes {
     success: boolean;
     budget: number;
