@@ -68,6 +68,7 @@ var MSG_TYPE;
     MSG_TYPE["SAVEDATA"] = "SAVEDATA";
     MSG_TYPE["GETLSAT"] = "GETLSAT";
     MSG_TYPE["UPDATELSAT"] = "UPDATELSAT";
+    MSG_TYPE["GETPERSONDATA"] = "GETPERSONDATA";
 })(MSG_TYPE = exports.MSG_TYPE || (exports.MSG_TYPE = {}));
 var APP_NAME = "Sphinx";
 var Sphinx = /** @class */ (function () {
@@ -345,7 +346,7 @@ var Sphinx = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         if (this.logging)
-                            console.log("=> GET LSAT");
+                            console.log("=> UPDATE LSAT");
                         if (!this.isEnabled)
                             return [2 /*return*/, null];
                         _a.label = 1;
@@ -452,36 +453,6 @@ var Sphinx = /** @class */ (function () {
             });
         });
     };
-    Sphinx.prototype.verifyMessage = function (signature, message) {
-        return __awaiter(this, void 0, void 0, function () {
-            var r, e_12;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (this.logging)
-                            console.log("=> VERIFY MESSAGE");
-                        if (!this.isEnabled)
-                            return [2 /*return*/, null];
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.postMsg(MSG_TYPE.SIGN, {
-                                signature: signature,
-                                message: message,
-                            })];
-                    case 2:
-                        r = _a.sent();
-                        return [2 /*return*/, r];
-                    case 3:
-                        e_12 = _a.sent();
-                        if (this.logging)
-                            console.log(e_12);
-                        return [2 /*return*/, null];
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
     Sphinx.prototype.reload = function (password) {
         return __awaiter(this, void 0, void 0, function () {
             var r, hasBudget, e_13;
@@ -539,6 +510,33 @@ var Sphinx = /** @class */ (function () {
                         error_1 = _a.sent();
                         if (this.logging)
                             console.log(error_1);
+                        return [2 /*return*/, null];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Sphinx.prototype.getPersonData = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var r, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (this.logging)
+                            console.log("=> GETPERSONDATA");
+                        if (!this.isEnabled)
+                            return [2 /*return*/, null];
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.GETPERSONDATA)];
+                    case 2:
+                        r = _a.sent();
+                        return [2 /*return*/, r];
+                    case 3:
+                        error_2 = _a.sent();
+                        if (this.logging)
+                            console.log(error_2);
                         return [2 /*return*/, null];
                     case 4: return [2 /*return*/];
                 }

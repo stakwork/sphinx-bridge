@@ -71,12 +71,19 @@ export interface ReloadArgs {
 }
 
 export interface SaveDataArgs {
-  type: string;
+  type: number;
   metaData: any;
 }
 
 export interface SaveDataRes {
   success: boolean;
+}
+
+export interface GetPersonDataRes {
+  success: boolean;
+  alias: string;
+  publicKey: string;
+  photoUrl: string;
 }
 
 export interface SphinxProvider {
@@ -101,4 +108,6 @@ export interface SphinxProvider {
   reload(password: string): Promise<EnableRes | null>;
 
   saveGraphData(data: SaveDataArgs): Promise<SaveDataRes | null>;
+
+  getPersonData(): Promise<GetPersonDataRes | null>;
 }
