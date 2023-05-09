@@ -69,7 +69,7 @@ export function removeEventer(func: any) {
   ) {
     win.sphinxMessage = null;
   } else if (win.Android) {
-    win.addEventListener("message", func);
+    win.removeEventListener("message", func);
   } else {
     win.removeEventListener("message", func);
   }
