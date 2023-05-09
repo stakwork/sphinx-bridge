@@ -48,7 +48,13 @@ export function addEventer(func: any) {
       func({ data: final });
     };
   } else if (win.Android) {
-    win.addEventListener("message", func);
+    win.sphinxMessage = function(e: string) {
+      let final = {};
+      try {
+        final = JSON.parse(e);
+      } catch (e) {}
+      func({ data: final });
+    };
   } else {
     win.addEventListener("message", func);
   }
@@ -69,7 +75,7 @@ export function removeEventer(func: any) {
   ) {
     win.sphinxMessage = null;
   } else if (win.Android) {
-    win.removeEventListener("message", func);
+    win.sphinxMessage = null;
   } else {
     win.removeEventListener("message", func);
   }

@@ -1,6 +1,6 @@
 {
   "name": "sphinx-bridge-kevkevinpal",
-  "version": "0.2.57",
+  "version": "0.2.58",
   "description": "Embed apps within Sphinx",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
