@@ -312,7 +312,7 @@ var Sphinx = /** @class */ (function () {
             });
         });
     };
-    Sphinx.prototype.getLsat = function () {
+    Sphinx.prototype.getLsat = function (issuer) {
         return __awaiter(this, void 0, void 0, function () {
             var r, e_8;
             return __generator(this, function (_a) {
@@ -325,7 +325,9 @@ var Sphinx = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.postMsg(MSG_TYPE.GETLSAT)];
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.GETLSAT, {
+                                issuer: issuer,
+                            })];
                     case 2:
                         r = _a.sent();
                         return [2 /*return*/, r];
