@@ -20,6 +20,7 @@ import {
   UpdateLsatArgs,
   UpdateLsatRes,
   GetPersonDataRes,
+  GetLsatArgs,
 } from "./provider";
 import { postMessage, addEventer, removeEventer } from "./postMessage";
 // @ts-ignore
@@ -188,11 +189,13 @@ export default class Sphinx implements SphinxProvider {
     }
   }
 
-  async getLsat() {
+  async getLsat(issuer?: string) {
     if (this.logging) console.log("=> GET LSAT");
     if (!this.isEnabled) return null;
     try {
-      const r = await this.postMsg<GetLsatRes>(MSG_TYPE.GETLSAT);
+      const r = await this.postMsg<GetLsatRes, GetLsatArgs>(MSG_TYPE.GETLSAT, {
+        issuer,
+      });
       return r;
     } catch (e) {
       if (this.logging) console.log(e);

@@ -44,6 +44,9 @@ export interface GetLsatRes {
     status: string;
     success: boolean;
 }
+export interface GetLsatArgs {
+    issuer?: string;
+}
 export interface UpdateLsatRes {
     success: boolean;
 }
