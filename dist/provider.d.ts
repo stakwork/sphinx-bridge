@@ -84,6 +84,10 @@ export interface GetPersonDataRes {
     publicKey: string;
     photoUrl: string;
 }
+export interface GetBudgetRes {
+    success: boolean;
+    budget: number;
+}
 export interface SphinxProvider {
     enable(): Promise<EnableRes | null>;
     topup(): Promise<EnableRes | null>;
