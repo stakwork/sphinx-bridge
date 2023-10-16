@@ -21,6 +21,7 @@ import {
   UpdateLsatRes,
   GetPersonDataRes,
   GetLsatArgs,
+  GetBudgetRes,
 } from "./provider";
 import { postMessage, addEventer, removeEventer } from "./postMessage";
 // @ts-ignore
@@ -46,6 +47,7 @@ export enum MSG_TYPE {
   GETLSAT = "GETLSAT",
   UPDATELSAT = "UPDATELSAT",
   GETPERSONDATA = "GETPERSONDATA",
+  GETBUDGET = "GETBUDGET",
 }
 
 const APP_NAME = "Sphinx";
@@ -304,6 +306,18 @@ export default class Sphinx implements SphinxProvider {
     if (!this.isEnabled) return null;
     try {
       const r = await this.postMsg<GetPersonDataRes>(MSG_TYPE.GETPERSONDATA);
+      return r;
+    } catch (error) {
+      if (this.logging) console.log(error);
+      return null;
+    }
+  }
+
+  async getBudget() {
+    if (this.logging) console.log("=> GETBUDGET");
+    if (!this.isEnabled) return null;
+    try {
+      const r = await this.postMsg<GetBudgetRes>(MSG_TYPE.GETBUDGET);
       return r;
     } catch (error) {
       if (this.logging) console.log(error);
