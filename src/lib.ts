@@ -71,10 +71,8 @@ export default class Sphinx implements SphinxProvider {
     }
     try {
       const r = await this.postMsg<EnableRes>(MSG_TYPE.AUTHORIZE);
-      const hasBudget = r.budget || r.budget === 0;
-      if (hasBudget && r.pubkey) {
+      if (r.pubkey) {
         this.isEnabled = true;
-        this.budget = r.budget;
         this.pubkey = r.pubkey;
         return r;
       }
