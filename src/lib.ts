@@ -22,6 +22,7 @@ import {
   GetPersonDataRes,
   GetLsatArgs,
   GetBudgetRes,
+  SetBudgetRes,
 } from "./provider";
 import { postMessage, addEventer, removeEventer } from "./postMessage";
 // @ts-ignore
@@ -48,6 +49,7 @@ export enum MSG_TYPE {
   UPDATELSAT = "UPDATELSAT",
   GETPERSONDATA = "GETPERSONDATA",
   GETBUDGET = "GETBUDGET",
+  SETBUDGET = "SETBUDGET",
 }
 
 const APP_NAME = "Sphinx";
@@ -110,11 +112,10 @@ export default class Sphinx implements SphinxProvider {
   async topup() {
     if (this.logging) console.log("=> TOP UP");
     try {
-      const r = await this.postMsg<EnableRes>(MSG_TYPE.AUTHORIZE);
+      const r = await this.postMsg<SetBudgetRes>(MSG_TYPE.SETBUDGET);
       const hasBudget = r.budget || r.budget === 0;
-      if (hasBudget && r.pubkey) {
+      if (hasBudget) {
         this.budget = r.budget;
-        this.pubkey = r.pubkey;
         return r;
       }
     } catch (e) {
@@ -316,7 +317,27 @@ export default class Sphinx implements SphinxProvider {
     if (!this.isEnabled) return null;
     try {
       const r = await this.postMsg<GetBudgetRes>(MSG_TYPE.GETBUDGET);
-      return r;
+      const hasBudget = r.budget || r.budget === 0;
+      if (hasBudget) {
+        this.budget = r.budget;
+        return r;
+      }
+    } catch (error) {
+      if (this.logging) console.log(error);
+      return null;
+    }
+  }
+
+  async setBudget() {
+    if (this.logging) console.log("=> SETBUDGET");
+    if (!this.isEnabled) return null;
+    try {
+      const r = await this.postMsg<SetBudgetRes>(MSG_TYPE.SETBUDGET);
+      const hasBudget = r.budget || r.budget === 0;
+      if (hasBudget) {
+        this.budget = r.budget;
+        return r;
+      }
     } catch (error) {
       if (this.logging) console.log(error);
       return null;

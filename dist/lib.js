@@ -70,6 +70,7 @@ var MSG_TYPE;
     MSG_TYPE["UPDATELSAT"] = "UPDATELSAT";
     MSG_TYPE["GETPERSONDATA"] = "GETPERSONDATA";
     MSG_TYPE["GETBUDGET"] = "GETBUDGET";
+    MSG_TYPE["SETBUDGET"] = "SETBUDGET";
 })(MSG_TYPE = exports.MSG_TYPE || (exports.MSG_TYPE = {}));
 var APP_NAME = "Sphinx";
 var Sphinx = /** @class */ (function () {
@@ -82,7 +83,7 @@ var Sphinx = /** @class */ (function () {
     }
     Sphinx.prototype.enable = function (logging) {
         return __awaiter(this, void 0, void 0, function () {
-            var r, hasBudget, e_1;
+            var r, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -103,10 +104,8 @@ var Sphinx = /** @class */ (function () {
                         return [4 /*yield*/, this.postMsg(MSG_TYPE.AUTHORIZE)];
                     case 2:
                         r = _a.sent();
-                        hasBudget = r.budget || r.budget === 0;
-                        if (hasBudget && r.pubkey) {
+                        if (r.pubkey) {
                             this.isEnabled = true;
-                            this.budget = r.budget;
                             this.pubkey = r.pubkey;
                             return [2 /*return*/, r];
                         }
@@ -170,13 +169,12 @@ var Sphinx = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.postMsg(MSG_TYPE.AUTHORIZE)];
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.SETBUDGET)];
                     case 2:
                         r = _a.sent();
                         hasBudget = r.budget || r.budget === 0;
-                        if (hasBudget && r.pubkey) {
+                        if (hasBudget) {
                             this.budget = r.budget;
-                            this.pubkey = r.pubkey;
                             return [2 /*return*/, r];
                         }
                         return [3 /*break*/, 4];
@@ -548,7 +546,7 @@ var Sphinx = /** @class */ (function () {
     };
     Sphinx.prototype.getBudget = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var r, error_3;
+            var r, hasBudget, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -562,11 +560,48 @@ var Sphinx = /** @class */ (function () {
                         return [4 /*yield*/, this.postMsg(MSG_TYPE.GETBUDGET)];
                     case 2:
                         r = _a.sent();
-                        return [2 /*return*/, r];
+                        hasBudget = r.budget || r.budget === 0;
+                        if (hasBudget) {
+                            this.budget = r.budget;
+                            return [2 /*return*/, r];
+                        }
+                        return [3 /*break*/, 4];
                     case 3:
                         error_3 = _a.sent();
                         if (this.logging)
                             console.log(error_3);
+                        return [2 /*return*/, null];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Sphinx.prototype.setBudget = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var r, hasBudget, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (this.logging)
+                            console.log("=> SETBUDGET");
+                        if (!this.isEnabled)
+                            return [2 /*return*/, null];
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.SETBUDGET)];
+                    case 2:
+                        r = _a.sent();
+                        hasBudget = r.budget || r.budget === 0;
+                        if (hasBudget) {
+                            this.budget = r.budget;
+                            return [2 /*return*/, r];
+                        }
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_4 = _a.sent();
+                        if (this.logging)
+                            console.log(error_4);
                         return [2 /*return*/, null];
                     case 4: return [2 /*return*/];
                 }
