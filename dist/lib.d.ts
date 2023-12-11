@@ -1,4 +1,4 @@
-import { SphinxProvider, EnableRes, KeysendRes, SendPaymentRes, InvoiceRes, SignMessageRes, AuthorizeRes, SaveDataArgs, SaveDataRes, GetPersonDataRes, GetBudgetRes } from "./provider";
+import { SphinxProvider, EnableRes, KeysendRes, SendPaymentRes, InvoiceRes, SignMessageRes, AuthorizeRes, SaveDataArgs, SaveDataRes, GetPersonDataRes, GetBudgetRes, SetBudgetRes } from "./provider";
 export declare enum MSG_TYPE {
     AUTHORIZE = "AUTHORIZE",
     INFO = "INFO",
@@ -17,7 +17,8 @@ export declare enum MSG_TYPE {
     GETLSAT = "GETLSAT",
     UPDATELSAT = "UPDATELSAT",
     GETPERSONDATA = "GETPERSONDATA",
-    GETBUDGET = "GETBUDGET"
+    GETBUDGET = "GETBUDGET",
+    SETBUDGET = "SETBUDGET"
 }
 export default class Sphinx implements SphinxProvider {
     private isEnabled;
@@ -31,7 +32,7 @@ export default class Sphinx implements SphinxProvider {
         application: string;
     } | null>;
     authorize(challenge: string, no_budget?: boolean, logging?: boolean): Promise<AuthorizeRes | null>;
-    topup(): Promise<EnableRes | null>;
+    topup(): Promise<SetBudgetRes | null>;
     keysend(dest: string, amt: number): Promise<KeysendRes | null>;
     updated(): Promise<null | undefined>;
     sendPayment(paymentRequest: string): Promise<SendPaymentRes | null>;
@@ -44,6 +45,7 @@ export default class Sphinx implements SphinxProvider {
     reload(password: string): Promise<EnableRes | null>;
     saveGraphData(data: SaveDataArgs): Promise<SaveDataRes | null>;
     getPersonData(): Promise<GetPersonDataRes | null>;
-    getBudget(): Promise<GetBudgetRes | null>;
+    getBudget(): Promise<GetBudgetRes | null | undefined>;
+    setBudget(): Promise<SetBudgetRes | null | undefined>;
     private postMsg;
 }

@@ -94,10 +94,15 @@ export interface GetBudgetRes {
   budget: number;
 }
 
+export interface SetBudgetRes {
+  success: boolean;
+  budget: number;
+}
+
 export interface SphinxProvider {
   enable(): Promise<EnableRes | null>;
 
-  topup(): Promise<EnableRes | null>;
+  topup(): Promise<SetBudgetRes | null>;
 
   authorize(challenge: string): Promise<AuthorizeRes | null>;
 
