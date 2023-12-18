@@ -615,6 +615,28 @@ var Sphinx = /** @class */ (function () {
             Promise.reject(new Error("User is busy"));
         }
         self.active = type;
+        var win = window;
+        if (win.kmpJsBridge.callNative) {
+            return new Promise(function (resolve, reject) {
+                win.kmpJsBridge.callNative("sphinx-bridge", JSON.stringify(__assign({ application: APP_NAME, type: type }, (args || {}))), function (data) {
+                    var final = {};
+                    try {
+                        final = JSON.parse(data);
+                    }
+                    catch (error) { }
+                    if (final || final.application !== APP_NAME) {
+                        return;
+                    }
+                    self.active = null;
+                    if (final.error) {
+                        reject(final.error);
+                    }
+                    else {
+                        resolve(final);
+                    }
+                });
+            });
+        }
         return new Promise(function (resolve, reject) {
             postMessage_1.postMessage(__assign({ application: APP_NAME, type: type }, (args || {})));
             function handleWindowMessage(ev) {
