@@ -354,6 +354,31 @@ export default class Sphinx implements SphinxProvider {
       Promise.reject(new Error("User is busy"));
     }
     self.active = type;
+    const win = window as any;
+
+    if (win.kmpJsBridge.callNative) {
+      return new Promise((resolve, reject) => {
+        win.kmpJsBridge.callNative(
+          "sphinx-bridge",
+          JSON.stringify({ application: APP_NAME, type, ...(args || {}) }),
+          function (data: string) {
+            let final: any = {};
+            try {
+              final = JSON.parse(data);
+            } catch (error) {}
+            if (final || final.application !== APP_NAME) {
+              return;
+            }
+            self.active = null;
+            if (final.error) {
+              reject(final.error);
+            } else {
+              resolve(final);
+            }
+          }
+        );
+      });
+    }
     return new Promise((resolve, reject) => {
       postMessage({
         application: APP_NAME,
