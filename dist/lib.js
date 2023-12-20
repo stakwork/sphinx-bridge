@@ -610,13 +610,14 @@ var Sphinx = /** @class */ (function () {
     };
     // Internal prompt handler
     Sphinx.prototype.postMsg = function (type, args) {
+        var _a;
         var self = this;
         if (self.active) {
             Promise.reject(new Error("User is busy"));
         }
         self.active = type;
         var win = window;
-        if (win.kmpJsBridge.callNative) {
+        if ((_a = win.kmpJsBridge) === null || _a === void 0 ? void 0 : _a.callNative) {
             return new Promise(function (resolve, reject) {
                 win.kmpJsBridge.callNative("sphinx-bridge", JSON.stringify(__assign({ application: APP_NAME, type: type }, (args || {}))), function (data) {
                     var final = {};

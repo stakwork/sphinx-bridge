@@ -356,7 +356,7 @@ export default class Sphinx implements SphinxProvider {
     self.active = type;
     const win = window as any;
 
-    if (win.kmpJsBridge.callNative) {
+    if (win.kmpJsBridge?.callNative) {
       return new Promise((resolve, reject) => {
         win.kmpJsBridge.callNative(
           "sphinx-bridge",
