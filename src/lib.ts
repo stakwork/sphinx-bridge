@@ -366,7 +366,10 @@ export default class Sphinx implements SphinxProvider {
             try {
               final = JSON.parse(data);
             } catch (error) {}
-            if (final || final.application !== APP_NAME) {
+            if (
+              Object.keys(final).length === 0 ||
+              final.application !== APP_NAME
+            ) {
               return;
             }
             self.active = null;
