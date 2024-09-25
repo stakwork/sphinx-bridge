@@ -1,4 +1,4 @@
-import { SphinxProvider, EnableRes, KeysendRes, SendPaymentRes, InvoiceRes, SignMessageRes, AuthorizeRes, SaveDataArgs, SaveDataRes, GetPersonDataRes, GetBudgetRes, SetBudgetRes } from "./provider";
+import { SphinxProvider, EnableRes, KeysendRes, SendPaymentRes, InvoiceRes, SignMessageRes, AuthorizeRes, SaveDataArgs, SaveDataRes, GetPersonDataRes, GetBudgetRes, SetBudgetRes, GetTribeTokenRes } from "./provider";
 export declare enum MSG_TYPE {
     AUTHORIZE = "AUTHORIZE",
     INFO = "INFO",
@@ -18,7 +18,8 @@ export declare enum MSG_TYPE {
     UPDATELSAT = "UPDATELSAT",
     GETPERSONDATA = "GETPERSONDATA",
     GETBUDGET = "GETBUDGET",
-    SETBUDGET = "SETBUDGET"
+    SETBUDGET = "SETBUDGET",
+    GETTRIBETOKEN = "GETTRIBETOKEN"
 }
 export default class Sphinx implements SphinxProvider {
     private isEnabled;
@@ -47,5 +48,6 @@ export default class Sphinx implements SphinxProvider {
     getPersonData(): Promise<GetPersonDataRes | null>;
     getBudget(): Promise<GetBudgetRes | null | undefined>;
     setBudget(): Promise<SetBudgetRes | null | undefined>;
+    getTribeToken(): Promise<GetTribeTokenRes | null>;
     private postMsg;
 }
