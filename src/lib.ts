@@ -23,7 +23,7 @@ import {
   GetLsatArgs,
   GetBudgetRes,
   SetBudgetRes,
-  GetTribeTokenRes,
+  GetSignedTokenRes,
 } from "./provider";
 import { postMessage, addEventer, removeEventer } from "./postMessage";
 // @ts-ignore
@@ -51,7 +51,7 @@ export enum MSG_TYPE {
   GETPERSONDATA = "GETPERSONDATA",
   GETBUDGET = "GETBUDGET",
   SETBUDGET = "SETBUDGET",
-  GETTRIBETOKEN = "GETTRIBETOKEN",
+  GETSIGNEDTOKEN = "GETSIGNEDTOKEN",
 }
 
 const APP_NAME = "Sphinx";
@@ -347,10 +347,10 @@ export default class Sphinx implements SphinxProvider {
   }
 
   async getTribeToken() {
-    if (this.logging) console.log("=> GETTRIBETOKEN");
+    if (this.logging) console.log("=> GETSIGNEDTOKEN");
     if (!this.isEnabled) return null;
     try {
-      const r = await this.postMsg<GetTribeTokenRes>(MSG_TYPE.GETTRIBETOKEN);
+      const r = await this.postMsg<GetSignedTokenRes>(MSG_TYPE.GETSIGNEDTOKEN);
       return r;
     } catch (error) {
       if (this.logging) console.log(error);
