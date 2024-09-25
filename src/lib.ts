@@ -346,7 +346,7 @@ export default class Sphinx implements SphinxProvider {
     }
   }
 
-  async getTribeToken() {
+  async getSignedToken() {
     if (this.logging) console.log("=> GETSIGNEDTOKEN");
     if (!this.isEnabled) return null;
     try {

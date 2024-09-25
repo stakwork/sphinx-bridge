@@ -71,7 +71,7 @@ var MSG_TYPE;
     MSG_TYPE["GETPERSONDATA"] = "GETPERSONDATA";
     MSG_TYPE["GETBUDGET"] = "GETBUDGET";
     MSG_TYPE["SETBUDGET"] = "SETBUDGET";
-    MSG_TYPE["GETTRIBETOKEN"] = "GETTRIBETOKEN";
+    MSG_TYPE["GETSIGNEDTOKEN"] = "GETSIGNEDTOKEN";
 })(MSG_TYPE = exports.MSG_TYPE || (exports.MSG_TYPE = {}));
 var APP_NAME = "Sphinx";
 var Sphinx = /** @class */ (function () {
@@ -609,20 +609,20 @@ var Sphinx = /** @class */ (function () {
             });
         });
     };
-    Sphinx.prototype.getTribeToken = function () {
+    Sphinx.prototype.getSignedToken = function () {
         return __awaiter(this, void 0, void 0, function () {
             var r, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         if (this.logging)
-                            console.log("=> GETTRIBETOKEN");
+                            console.log("=> GETSIGNEDTOKEN");
                         if (!this.isEnabled)
                             return [2 /*return*/, null];
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.postMsg(MSG_TYPE.GETTRIBETOKEN)];
+                        return [4 /*yield*/, this.postMsg(MSG_TYPE.GETSIGNEDTOKEN)];
                     case 2:
                         r = _a.sent();
                         return [2 /*return*/, r];

@@ -92,7 +92,7 @@ export interface SetBudgetRes {
     success: boolean;
     budget: number;
 }
-export interface GetTribeTokenRes {
+export interface GetSignedTokenRes {
     success: boolean;
     token: string;
 }
