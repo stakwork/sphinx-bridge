@@ -92,6 +92,10 @@ export interface SetBudgetRes {
     success: boolean;
     budget: number;
 }
+export interface GetSignedTokenRes {
+    success: boolean;
+    token: string;
+}
 export interface SphinxProvider {
     enable(): Promise<EnableRes | null>;
     topup(): Promise<SetBudgetRes | null>;
