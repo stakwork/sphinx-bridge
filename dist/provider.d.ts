@@ -96,6 +96,10 @@ export interface GetSignedTokenRes {
     success: boolean;
     token: string;
 }
+export interface GetSecondBrainListRes {
+    success: boolean;
+    swarms: string[];
+}
 export interface SphinxProvider {
     enable(): Promise<EnableRes | null>;
     topup(): Promise<SetBudgetRes | null>;
