@@ -1,4 +1,4 @@
-import { SphinxProvider, EnableRes, KeysendRes, SendPaymentRes, InvoiceRes, SignMessageRes, AuthorizeRes, SaveDataArgs, SaveDataRes, GetPersonDataRes, GetBudgetRes, SetBudgetRes, GetSignedTokenRes } from "./provider";
+import { SphinxProvider, EnableRes, KeysendRes, SendPaymentRes, InvoiceRes, SignMessageRes, AuthorizeRes, SaveDataArgs, SaveDataRes, GetPersonDataRes, GetBudgetRes, SetBudgetRes, GetSignedTokenRes, GetSecondBrainListRes } from "./provider";
 export declare enum MSG_TYPE {
     AUTHORIZE = "AUTHORIZE",
     INFO = "INFO",
@@ -19,7 +19,8 @@ export declare enum MSG_TYPE {
     GETPERSONDATA = "GETPERSONDATA",
     GETBUDGET = "GETBUDGET",
     SETBUDGET = "SETBUDGET",
-    GETSIGNEDTOKEN = "GETSIGNEDTOKEN"
+    GETSIGNEDTOKEN = "GETSIGNEDTOKEN",
+    GETSECONDBRAINLIST = "GETSECONDBRAINLIST"
 }
 export default class Sphinx implements SphinxProvider {
     private isEnabled;
@@ -49,5 +50,6 @@ export default class Sphinx implements SphinxProvider {
     getBudget(): Promise<GetBudgetRes | null | undefined>;
     setBudget(): Promise<SetBudgetRes | null | undefined>;
     getSignedToken(): Promise<GetSignedTokenRes | null>;
+    getSecondBrainList(): Promise<GetSecondBrainListRes | null>;
     private postMsg;
 }

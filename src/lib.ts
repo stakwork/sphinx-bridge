@@ -24,6 +24,7 @@ import {
   GetBudgetRes,
   SetBudgetRes,
   GetSignedTokenRes,
+  GetSecondBrainListRes,
 } from "./provider";
 import { postMessage, addEventer, removeEventer } from "./postMessage";
 // @ts-ignore
@@ -52,6 +53,7 @@ export enum MSG_TYPE {
   GETBUDGET = "GETBUDGET",
   SETBUDGET = "SETBUDGET",
   GETSIGNEDTOKEN = "GETSIGNEDTOKEN",
+  GETSECONDBRAINLIST = "GETSECONDBRAINLIST",
 }
 
 const APP_NAME = "Sphinx";
@@ -351,6 +353,20 @@ export default class Sphinx implements SphinxProvider {
     if (!this.isEnabled) return null;
     try {
       const r = await this.postMsg<GetSignedTokenRes>(MSG_TYPE.GETSIGNEDTOKEN);
+      return r;
+    } catch (error) {
+      if (this.logging) console.log(error);
+      return null;
+    }
+  }
+
+  async getSecondBrainList() {
+    if (this.logging) console.log("=> GETSECONDBRAINLIST");
+    if (!this.isEnabled) return null;
+    try {
+      const r = await this.postMsg<GetSecondBrainListRes>(
+        MSG_TYPE.GETSECONDBRAINLIST
+      );
       return r;
     } catch (error) {
       if (this.logging) console.log(error);
