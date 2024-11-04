@@ -106,7 +106,7 @@ export interface GetSignedTokenRes {
 
 export interface GetSecondBrainListRes {
   success: boolean;
-  swarms: string[];
+  second_brain_list: string[];
 }
 
 export interface SphinxProvider {
