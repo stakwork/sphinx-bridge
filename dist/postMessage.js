@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.removeEventer = exports.addEventer = exports.postMessage = void 0;
+exports.postMessage = postMessage;
+exports.addEventer = addEventer;
+exports.removeEventer = removeEventer;
 function postMessage(data) {
     var win = window;
     if (win.sendToElectron) {
@@ -23,7 +25,6 @@ function postMessage(data) {
         win.parent.postMessage(data, "*"); // browser iframe
     }
 }
-exports.postMessage = postMessage;
 function addEventer(func) {
     var win = window;
     if (win.sendToElectron) {
@@ -69,7 +70,6 @@ function addEventer(func) {
         win.addEventListener("message", func);
     }
 }
-exports.addEventer = addEventer;
 function removeEventer(func) {
     var win = window;
     if (win.sendToElectron) {
@@ -92,4 +92,3 @@ function removeEventer(func) {
         win.removeEventListener("message", func);
     }
 }
-exports.removeEventer = removeEventer;

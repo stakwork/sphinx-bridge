@@ -27,10 +27,12 @@ export default class Sphinx implements SphinxProvider {
     private active;
     private budget;
     private pubkey;
+    private route_hint;
     private logging;
     enable(logging?: boolean): Promise<EnableRes | {
         budget: number;
         pubkey: string;
+        route_hint: string;
         application: string;
     } | null>;
     authorize(challenge: string, no_budget?: boolean, logging?: boolean): Promise<AuthorizeRes | null>;
@@ -38,9 +40,9 @@ export default class Sphinx implements SphinxProvider {
     keysend(dest: string, amt: number): Promise<KeysendRes | null>;
     updated(): Promise<null | undefined>;
     sendPayment(paymentRequest: string): Promise<SendPaymentRes | null>;
-    saveLsat(paymentRequest: string, macaroon: string, issuer: string): Promise<any>;
-    getLsat(issuer?: string): Promise<any>;
-    updateLsat(identifier: string, status: string): Promise<any>;
+    saveLsat(paymentRequest: string, macaroon: string, issuer: string): Promise<unknown>;
+    getLsat(issuer?: string): Promise<unknown>;
+    updateLsat(identifier: string, status: string): Promise<unknown>;
     makeInvoice(amt: number, memo: string): Promise<InvoiceRes | null>;
     signMessage(message: string): Promise<SignMessageRes | null>;
     verifyMessage(signature: string, message: string): Promise<boolean | null>;

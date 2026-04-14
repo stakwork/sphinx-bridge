@@ -63,6 +63,7 @@ export default class Sphinx implements SphinxProvider {
   private active: MSG_TYPE | null = null;
   private budget: number = 0;
   private pubkey: string = "";
+  private route_hint: string = "";
   private logging: boolean = false;
 
   async enable(logging?: boolean) {
@@ -72,6 +73,7 @@ export default class Sphinx implements SphinxProvider {
       return {
         budget: this.budget,
         pubkey: this.pubkey,
+        route_hint: this.route_hint,
         application: APP_NAME,
       };
     }
@@ -80,6 +82,7 @@ export default class Sphinx implements SphinxProvider {
       if (r.pubkey) {
         this.isEnabled = true;
         this.pubkey = r.pubkey;
+        this.route_hint = r.route_hint || "";
         return r;
       }
     } catch (e) {
@@ -105,6 +108,7 @@ export default class Sphinx implements SphinxProvider {
         this.isEnabled = true;
         this.budget = r.budget || 0;
         this.pubkey = r.pubkey;
+        this.route_hint = r.route_hint || "";
         return r;
       }
     } catch (e) {

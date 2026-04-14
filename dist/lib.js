@@ -20,12 +20,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
+    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -73,7 +73,7 @@ var MSG_TYPE;
     MSG_TYPE["SETBUDGET"] = "SETBUDGET";
     MSG_TYPE["GETSIGNEDTOKEN"] = "GETSIGNEDTOKEN";
     MSG_TYPE["GETSECONDBRAINLIST"] = "GETSECONDBRAINLIST";
-})(MSG_TYPE = exports.MSG_TYPE || (exports.MSG_TYPE = {}));
+})(MSG_TYPE || (exports.MSG_TYPE = MSG_TYPE = {}));
 var APP_NAME = "Sphinx";
 var Sphinx = /** @class */ (function () {
     function Sphinx() {
@@ -81,6 +81,7 @@ var Sphinx = /** @class */ (function () {
         this.active = null;
         this.budget = 0;
         this.pubkey = "";
+        this.route_hint = "";
         this.logging = false;
     }
     Sphinx.prototype.enable = function (logging) {
@@ -97,6 +98,7 @@ var Sphinx = /** @class */ (function () {
                             return [2 /*return*/, {
                                     budget: this.budget,
                                     pubkey: this.pubkey,
+                                    route_hint: this.route_hint,
                                     application: APP_NAME,
                                 }];
                         }
@@ -109,6 +111,7 @@ var Sphinx = /** @class */ (function () {
                         if (r.pubkey) {
                             this.isEnabled = true;
                             this.pubkey = r.pubkey;
+                            this.route_hint = r.route_hint || "";
                             return [2 /*return*/, r];
                         }
                         return [3 /*break*/, 4];
@@ -147,6 +150,7 @@ var Sphinx = /** @class */ (function () {
                             this.isEnabled = true;
                             this.budget = r.budget || 0;
                             this.pubkey = r.pubkey;
+                            this.route_hint = r.route_hint || "";
                             return [2 /*return*/, r];
                         }
                         return [3 /*break*/, 4];
@@ -696,7 +700,7 @@ var Sphinx = /** @class */ (function () {
             });
         }
         return new Promise(function (resolve, reject) {
-            postMessage_1.postMessage(__assign({ application: APP_NAME, type: type }, (args || {})));
+            (0, postMessage_1.postMessage)(__assign({ application: APP_NAME, type: type }, (args || {})));
             function handleWindowMessage(ev) {
                 if (!ev.data || ev.data.application !== APP_NAME) {
                     return;
@@ -709,9 +713,9 @@ var Sphinx = /** @class */ (function () {
                     self.active = null;
                     resolve(ev.data);
                 }
-                postMessage_1.removeEventer(handleWindowMessage);
+                (0, postMessage_1.removeEventer)(handleWindowMessage);
             }
-            postMessage_1.addEventer(handleWindowMessage);
+            (0, postMessage_1.addEventer)(handleWindowMessage);
         });
     };
     return Sphinx;

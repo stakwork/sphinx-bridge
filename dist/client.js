@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.requestProvider = void 0;
+exports.requestProvider = requestProvider;
 function requestProvider() {
     return new Promise(function (resolve, reject) {
         if (typeof window === 'undefined') {
@@ -13,4 +13,3 @@ function requestProvider() {
         sphinx.enable().then(function () { return resolve(sphinx); });
     });
 }
-exports.requestProvider = requestProvider;
