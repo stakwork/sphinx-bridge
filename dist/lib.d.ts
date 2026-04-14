@@ -27,12 +27,12 @@ export default class Sphinx implements SphinxProvider {
     private active;
     private budget;
     private pubkey;
-    private route_hint;
+    private routeHint;
     private logging;
     enable(logging?: boolean): Promise<EnableRes | {
         budget: number;
         pubkey: string;
-        route_hint: string;
+        routeHint: string;
         application: string;
     } | null>;
     authorize(challenge: string, no_budget?: boolean, logging?: boolean): Promise<AuthorizeRes | null>;

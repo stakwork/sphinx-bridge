@@ -1,7 +1,7 @@
 export interface AuthorizeRes {
     budget: number;
     pubkey: string;
-    route_hint: string;
+    routeHint: string;
     signature: string;
 }
 export interface AuthorizeArgs {
@@ -11,7 +11,7 @@ export interface AuthorizeArgs {
 export interface EnableRes {
     budget: number;
     pubkey: string;
-    route_hint: string;
+    routeHint: string;
 }
 export interface KeysendArgs {
     amt: number;

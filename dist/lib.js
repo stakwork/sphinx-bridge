@@ -81,7 +81,7 @@ var Sphinx = /** @class */ (function () {
         this.active = null;
         this.budget = 0;
         this.pubkey = "";
-        this.route_hint = "";
+        this.routeHint = "";
         this.logging = false;
     }
     Sphinx.prototype.enable = function (logging) {
@@ -98,7 +98,7 @@ var Sphinx = /** @class */ (function () {
                             return [2 /*return*/, {
                                     budget: this.budget,
                                     pubkey: this.pubkey,
-                                    route_hint: this.route_hint,
+                                    routeHint: this.routeHint,
                                     application: APP_NAME,
                                 }];
                         }
@@ -111,7 +111,7 @@ var Sphinx = /** @class */ (function () {
                         if (r.pubkey) {
                             this.isEnabled = true;
                             this.pubkey = r.pubkey;
-                            this.route_hint = r.route_hint || "";
+                            this.routeHint = r.routeHint || "";
                             return [2 /*return*/, r];
                         }
                         return [3 /*break*/, 4];
@@ -150,7 +150,7 @@ var Sphinx = /** @class */ (function () {
                             this.isEnabled = true;
                             this.budget = r.budget || 0;
                             this.pubkey = r.pubkey;
-                            this.route_hint = r.route_hint || "";
+                            this.routeHint = r.routeHint || "";
                             return [2 /*return*/, r];
                         }
                         return [3 /*break*/, 4];
