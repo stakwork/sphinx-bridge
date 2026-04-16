@@ -128,7 +128,7 @@ export default class Sphinx implements SphinxProvider {
     return null;
   }
 
-  async keysend(dest: string, amt: number) {
+  async keysend(dest: string, amt: number, routeHint?: string) {
     if (this.logging) console.log("=> KEYSEND");
     if (!this.isEnabled) return null;
     if (!dest || !amt) return null;
@@ -137,6 +137,7 @@ export default class Sphinx implements SphinxProvider {
     if (amt > this.budget) return null;
     try {
       const args: KeysendArgs = { dest, amt };
+      if (routeHint) args.route_hint = routeHint;
       const r = await this.postMsg<KeysendRes, KeysendArgs>(
         MSG_TYPE.KEYSEND,
         args
