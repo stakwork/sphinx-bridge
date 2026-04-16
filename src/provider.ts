@@ -16,6 +16,7 @@ export interface EnableRes {
 export interface KeysendArgs {
   amt: number;
   dest: string;
+  route_hint?: string;
 }
 export interface KeysendRes {
   success: boolean;
@@ -118,7 +119,7 @@ export interface SphinxProvider {
 
   authorize(challenge: string): Promise<AuthorizeRes | null>;
 
-  keysend(dest: string, amt: number): Promise<KeysendRes | null>;
+  keysend(dest: string, amt: number, routeHint?: string): Promise<KeysendRes | null>;
 
   updated(): Promise<undefined | null>;
 
