@@ -194,7 +194,7 @@ var Sphinx = /** @class */ (function () {
             });
         });
     };
-    Sphinx.prototype.keysend = function (dest, amt) {
+    Sphinx.prototype.keysend = function (dest, amt, routeHint) {
         return __awaiter(this, void 0, void 0, function () {
             var args, r, e_4;
             return __generator(this, function (_a) {
@@ -216,6 +216,8 @@ var Sphinx = /** @class */ (function () {
                     case 1:
                         _a.trys.push([1, 3, , 4]);
                         args = { dest: dest, amt: amt };
+                        if (routeHint)
+                            args.route_hint = routeHint;
                         return [4 /*yield*/, this.postMsg(MSG_TYPE.KEYSEND, args)];
                     case 2:
                         r = _a.sent();

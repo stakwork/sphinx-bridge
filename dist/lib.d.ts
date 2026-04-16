@@ -37,7 +37,7 @@ export default class Sphinx implements SphinxProvider {
     } | null>;
     authorize(challenge: string, no_budget?: boolean, logging?: boolean): Promise<AuthorizeRes | null>;
     topup(): Promise<SetBudgetRes | null>;
-    keysend(dest: string, amt: number): Promise<KeysendRes | null>;
+    keysend(dest: string, amt: number, routeHint?: string): Promise<KeysendRes | null>;
     updated(): Promise<null | undefined>;
     sendPayment(paymentRequest: string): Promise<SendPaymentRes | null>;
     saveLsat(paymentRequest: string, macaroon: string, issuer: string): Promise<unknown>;
